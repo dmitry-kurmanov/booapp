@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf8" />
+		<meta name="viewport" content="width=device-width" />
+
+		<title>Boo App</title>
+
+		<link rel="stylesheet" href="booapp.css" />
+	</head>
+
+	<body>
+		<script src="booapp.js"></script>
+		<div id="booappElement"></div>
+
+		<script>
+			var json = {};
+			var rootNode = document.querySelector('#booappElement');
+			var booApp = new BooApp.Model(json);
+			booApp.render(rootNode);
+		</script>
+	</body>
+</html>
