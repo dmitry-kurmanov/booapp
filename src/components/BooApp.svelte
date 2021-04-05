@@ -1,17 +1,34 @@
 <script>
 	export let days = [];
-	const currentDate = new Date();
+	const todayDate = new Date();
 
 	const daysInMonth = (month, year) => {
 		// Use 0 for January, 1 for February, etc.
 		return new Date(year, month + 1, 0).getDate();
 	};
 
-	const generateDays = (currentDate) => {
+	const isWeekend = (dayNumber) => {
+		return dayNumber % 7 === 0 || dayNumber % 7 === 6;
+	};
+
+	const isToday = (dayNumber) => {
+		return todayDate.getDate() === dayNumber;
+	};
+
+	const getDayCssClasses = (dayNumber) => {
+		let base = 'booapp-calendar__day';
+		let today = isToday(dayNumber) ? base + '--today' : '';
+		let weekend = isWeekend(dayNumber) ? base + '--weekend' : '';
+		return `${base} ${weekend} ${today}`;
+	};
+
+	const generateDays = (todayDate) => {
+		let result = [];
 		let days = [];
-		const month = currentDate.getMonth();
-		const year = currentDate.getFullYear();
+		const month = todayDate.getMonth();
+		const year = todayDate.getFullYear();
 		const daysCount = daysInMonth(month, year);
+		const firstDayNumber = new Date(year, month, 1).getDay();
 
 		const weekday = [
 			'Sunday',
@@ -23,34 +40,35 @@
 			'Saturday',
 		];
 
-		for (let index = 1; index <= daysCount; index++) {
-			let date = new Date(year, month, index);
+		for (let dayNumber = 1; dayNumber <= daysCount; dayNumber++) {
+			let date = new Date(year, month, dayNumber);
 
-			days = [
-				...days,
-				{
-					number: index,
-					weekday: weekday[date.getDay()],
-					isCurrent: currentDate.getDate() === index,
-				},
-			];
+			days[firstDayNumber + dayNumber] = {
+				number: dayNumber,
+				weekday: weekday[date.getDay()],
+			};
 		}
 
-		return days;
+		for (let i = 0; i <= days.length; i++) {
+			let day = days[i];
+			if (!day) {
+				result.push({ number: i, weekday: 'aaaaaa' });
+			} else {
+				result.push(day);
+			}
+		}
+		return result;
 	};
 
-	days = generateDays(currentDate);
+	days = generateDays(todayDate);
 </script>
 
 <div>
 	<h1>BooApp Calendar</h1>
 
-	<div>
+	<div class="booapp-calendar">
 		{#each days as day}
-			<div
-				class="booapp__day"
-				class:booapp__day--current={day.isCurrent}
-			>
+			<div class={getDayCssClasses(day.number)}>
 				{day.number}
 				{day.weekday}
 			</div>
@@ -59,16 +77,25 @@
 </div>
 
 <style lang="scss" global>
-	.booapp-hide {
-		display: none;
+	.booapp-calendar {
+		display: grid;
+		grid-template-columns: repeat(7, 1fr);
+		grid-template-rows: repeat(5, 1fr);
+		height: 500px;
 	}
-	.booapp__day {
-		display: inline-block;
-		padding: 15px;
+	.booapp-calendar__day {
+		margin: auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 1px solid gray;
 	}
 
-	.booapp__day--current {
-		background-color: tomato;
-		color: white;
+	.booapp-calendar__day--today {
+		border: 1px solid tomato;
+	}
+
+	.booapp-calendar__day--weekend {
+		color: blue;
 	}
 </style>
