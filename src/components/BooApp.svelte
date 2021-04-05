@@ -1,5 +1,5 @@
 <script>
-		export let days = [];
+	export let days = [];
 	const currentDate = new Date();
 
 	const daysInMonth = (month, year) => {
@@ -47,9 +47,13 @@
 
 	<div>
 		{#each days as day}
-		<div class="agendum__day" class:agendum__day--current="{day.isCurrent}">
-			{day.number} {day.weekday}
-		</div>
+			<div
+				class="booapp__day"
+				class:booapp__day--current={day.isCurrent}
+			>
+				{day.number}
+				{day.weekday}
+			</div>
 		{/each}
 	</div>
 </div>
@@ -68,5 +72,3 @@
 		color: white;
 	}
 </style>
-
-
