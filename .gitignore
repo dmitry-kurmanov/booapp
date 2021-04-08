@@ -1,7 +1,5 @@
-.DS_Store
 **/dist/**
 **/node_modules/**
 **/public/booapp.*
 
-cypress/videos
-cypress/screenshots
+unit-tests/build/**

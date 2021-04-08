@@ -6,13 +6,14 @@ import livereload from 'rollup-plugin-livereload';
 import pkg from './package.json';
 import resolve from 'rollup-plugin-node-resolve';
 import svelte from 'rollup-plugin-svelte';
+import del from 'rollup-plugin-delete';
 
 const production = !process.env.ROLLUP_WATCH;
 const name = 'BooApp';
 
 const cssOutputPath = production ? 'dist/booapp.css' : 'public/booapp.css';
 
-export default {
+const config = {
 	input: 'src/index.js',
 	output: !production
 		? {
@@ -108,3 +109,46 @@ function serve() {
 		},
 	};
 }
+
+const testConfig = {
+	input: 'unit-tests/index.js',
+	output: [{ file: 'unit-tests/build/components.js', format: 'cjs' }],
+	plugins: [
+		del({
+			targets: ['unit-tests/build/components.js'],
+		}),
+		svelte({
+			// enable run-time checks when not in production
+			dev: !production,
+			// we'll extract any component CSS out into
+			// a separate file — better for performance
+			css: (css) => {
+				css.write(cssOutputPath);
+			},
+			/**
+			 * Auto preprocess supported languages with
+			 * '<template>'/'external src files' support
+			 **/
+			preprocess: autoPreprocess({
+				postcss: true,
+				scss: { includePaths: ['src', 'node_modules'] },
+			}),
+			accessors: true,
+		}),
+
+		// If you have external dependencies installed from
+		// npm, you'll most likely need these plugins. In
+		// some cases you'll need additional configuration —
+		// consult the documentation for details:
+		// https://github.com/rollup/rollup-plugin-commonjs
+		resolve({
+			browser: true,
+			dedupe: ['svelte'],
+		}),
+		commonjs({
+			include: ['node_modules/**'],
+		}),
+	],
+};
+
+export default [config, testConfig];

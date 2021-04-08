@@ -1,6 +1,6 @@
 <script>
 	export let days = [];
-	const currentDate = new Date();
+	export let currentDate = new Date();
 
 	const daysInMonth = (month, year) => {
 		// Use 0 for January, 1 for February, etc.

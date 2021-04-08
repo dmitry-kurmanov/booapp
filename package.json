@@ -5,14 +5,12 @@
 		"@babel/plugin-syntax-dynamic-import": "7.8.3",
 		"@babel/plugin-transform-runtime": "7.11.0",
 		"@babel/preset-env": "7.11.0",
-		"@testing-library/cypress": "6.0.0",
 		"autoprefixer": "9.8.6",
-		"cypress": "4.11.0",
 		"eslint": "7.6.0",
 		"eslint-config-prettier": "6.11.0",
-		"eslint-plugin-cypress": "2.11.1",
 		"eslint-plugin-svelte3": "2.7.3",
 		"husky": "4.2.5",
+		"jest": "26.6.3",
 		"lint-staged": "10.2.11",
 		"node-sass": "4.14.1",
 		"postcss": "7.0.32",
@@ -21,6 +19,7 @@
 		"rollup": "2.23.0",
 		"rollup-plugin-babel": "4.4.0",
 		"rollup-plugin-commonjs": "10.1.0",
+		"rollup-plugin-delete": "2.0.0",
 		"rollup-plugin-livereload": "1.3.0",
 		"rollup-plugin-node-resolve": "5.2.0",
 		"rollup-plugin-svelte": "5.2.3",
@@ -29,15 +28,14 @@
 		"sirv-cli": "1.0.5",
 		"start-server-and-test": "1.11.2",
 		"svelte": "3.24.0",
-		"svelte-preprocess": "4.0.9",
-		"testcafe": "1.9.4"
+		"svelte-preprocess": "4.0.9"
 	},
 	"files": [
 		"dist"
 	],
 	"husky": {
 		"hooks": {
-			"pre-commit": "lint-staged"
+			"pre-commit": "lint-staged test-single"
 		}
 	},
 	"keywords": [
@@ -63,14 +61,11 @@
 	},
 	"scripts": {
 		"build": "rollup -c",
-		"cy:open": "cypress open",
-		"cy:run": "cypress run",
-		"testcafe": "testcafe chrome testCafe/",
 		"dev": "rollup -c -w",
 		"lint": "eslint --color --ignore-path .gitignore .",
-		"prepublishOnly": "npm run build",
 		"start": "sirv public",
-		"test": "start-server-and-test dev http://localhost:5000 cy:run"
+		"test": "jest --watch",
+		"test-single": "jest"
 	},
 	"svelte": "src/components/BooApp.svelte",
 	"version": "0.0.2",
