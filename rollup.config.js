@@ -111,11 +111,11 @@ function serve() {
 }
 
 const testConfig = {
-	input: 'unit-tests/index.js',
-	output: [{ file: 'unit-tests/build/components.js', format: 'cjs' }],
+	input: 'unit-tests/components/index.js',
+	output: [{ file: 'unit-tests/components/testbuild.js', format: 'cjs' }],
 	plugins: [
 		del({
-			targets: ['unit-tests/build/components.js'],
+			targets: ['unit-tests/components/testbuild.js'],
 		}),
 		svelte({
 			// enable run-time checks when not in production

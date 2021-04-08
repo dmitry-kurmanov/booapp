@@ -1,6 +1,6 @@
-import { BooApp } from '../build/components.js';
+import { BooApp } from './testbuild.js';
 
-test('components => BooApp => currentDate', () => {
+test('currentDate', () => {
 	const booAppInstance = new BooApp({
 		target: document.body,
 		props: {},

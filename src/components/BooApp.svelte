@@ -1,6 +1,6 @@
 <script>
 	export let days = [];
-	const todayDate = new Date();
+	export let currentDate = new Date();
 
 	const daysInMonth = (month, year) => {
 		// Use 0 for January, 1 for February, etc.
@@ -12,7 +12,7 @@
 	};
 
 	const isToday = (dayNumber) => {
-		return todayDate.getDate() === dayNumber;
+		return currentDate.getDate() === dayNumber;
 	};
 
 	const getDayCssClasses = (dayNumber) => {
@@ -22,11 +22,11 @@
 		return `${base} ${weekend} ${today}`;
 	};
 
-	const generateDays = (todayDate) => {
+	const generateDays = (currentDate) => {
 		let result = [];
 		let days = [];
-		const month = todayDate.getMonth();
-		const year = todayDate.getFullYear();
+		const month = currentDate.getMonth();
+		const year = currentDate.getFullYear();
 		const daysCount = daysInMonth(month, year);
 		const firstDayNumber = new Date(year, month, 1).getDay();
 
@@ -60,7 +60,7 @@
 		return result;
 	};
 
-	days = generateDays(todayDate);
+	days = generateDays(currentDate);
 </script>
 
 <div>
