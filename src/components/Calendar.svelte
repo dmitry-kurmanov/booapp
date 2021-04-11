@@ -45,7 +45,7 @@
 <div class="booapp-calendar">
 	<div class="booapp-calendar__header">
 		<button>Prev</button>
-		<div>{monthName}</div>
+		<div>{monthName} {yearNumber}</div>
 		<button>Next</button>
 	</div>
 
