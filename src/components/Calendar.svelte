@@ -1,5 +1,5 @@
 <script>
-	import { monthsNames, weekDays } from '../strings';
+	import { monthsNames, weekDaysNames } from '../strings';
 	import {
 		getLastDateOfMonth,
 		getFirstWeekDayNumberOfMonth,
@@ -12,8 +12,9 @@
 	export let dateInstance = new Date();
 
 	const yearNumber = dateInstance.getFullYear();
-
 	const monthNumber = dateInstance.getMonth();
+	const dateNumber = dateInstance.getDate();
+
 	const monthName = monthsNames[monthNumber];
 	const dateString = dateInstance.toDateString();
 
@@ -35,29 +36,45 @@
 		monthNumber
 	);
 	let nextMonthDays = getNextMonthDaysNumbers(lastWeekDayNumber);
+
+	const isToday = (day) => {
+		return day === dateNumber;
+	};
 </script>
 
 <div class="booapp-calendar">
 	<div class="booapp-calendar__header">
+		<button>Prev</button>
 		<div>{monthName}</div>
-		<div>{dateString}</div>
+		<button>Next</button>
 	</div>
 
-	<div class="booapp-calendar_days">
+	<div class="booapp-calendar__weekdays">
+		{#each weekDaysNames as weekDayName}
+			<div class="booapp-calendar__weekday">
+				{weekDayName}
+			</div>
+		{/each}
+	</div>
+
+	<div class="booapp-calendar__days">
 		{#each prevMonthDays as day}
-			<div class="booapp-calendar_day booapp-calendar_day--prev-month">
+			<div class="booapp-calendar__day booapp-calendar__day--prev-month">
 				{day}
 			</div>
 		{/each}
 
 		{#each days as day}
-			<div class="booapp-calendar_day">
+			<div
+				class="booapp-calendar__day"
+				class:booapp-calendar__day--today={isToday(day)}
+			>
 				{day}
 			</div>
 		{/each}
 
 		{#each nextMonthDays as day}
-			<div class="booapp-calendar_day booapp-calendar_day--next-month">
+			<div class="booapp-calendar__day booapp-calendar__day--next-month">
 				{day}
 			</div>
 		{/each}
@@ -65,8 +82,71 @@
 </div>
 
 <style lang="scss" global>
-	.booapp-calendar_day--prev-month,
-	.booapp-calendar_day--next-month {
+	.booapp-calendar {
+		width: 45rem;
+		height: 40rem;
+		box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4);
+	}
+
+	.booapp-calendar__header {
+		font-size: 3.5rem;
+		font-weight: 400;
+		text-transform: uppercase;
+		letter-spacing: 0.2rem;
+		display: flex;
+		justify-content: center;
+		height: 5rem;
+		align-items: center;
+	}
+
+	.booapp-calendar__day--prev-month,
+	.booapp-calendar__day--next-month {
 		opacity: 0.5;
+	}
+
+	.booapp-calendar__weekdays {
+		width: 100%;
+		height: 5rem;
+		padding: 0 0.4rem;
+		display: flex;
+		align-items: center;
+	}
+	.booapp-calendar__weekday {
+		font-size: 1.5rem;
+		font-weight: 400;
+		letter-spacing: 0.1rem;
+		width: calc(44.2rem / 7);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.3);
+	}
+
+	.booapp-calendar__days {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		padding: 0.2rem;
+	}
+
+	.booapp-calendar__day {
+		font-size: 1.4rem;
+		margin: 0.3rem;
+		width: calc(40.2rem / 7);
+		height: 5rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.3);
+		transition: background-color 0.2s;
+	}
+
+	.booapp-calendar__day:hover:not(.booapp-calendar__day--today) {
+		border: 0.2rem solid tomato;
+		cursor: pointer;
+	}
+	.booapp-calendar__day--today {
+		color: #fff;
+		background-color: tomato;
 	}
 </style>
