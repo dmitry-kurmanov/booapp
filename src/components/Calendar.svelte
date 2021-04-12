@@ -15,22 +15,10 @@
 	export let monthNumber = dateInstance.getMonth();
 
 	$: monthName = monthsNames[monthNumber];
-	$: firstWeekDayNumber = getFirstWeekDayNumberOfMonth(
-		yearNumber,
-		monthNumber
-	);
 
-	$: lastDateOfPrevMonth = getLastDateOfMonth(yearNumber, monthNumber - 1);
-	$: prevMonthDays = getPreviousMonthDaysNumbers(
-		firstWeekDayNumber,
-		lastDateOfPrevMonth
-	);
-
-	$: lastDateOfMonth = getLastDateOfMonth(yearNumber, monthNumber);
-	$: days = getMonthDaysNumbers(lastDateOfMonth);
-
-	$: lastWeekDayNumber = getLastWeekDayNumberOfMonth(yearNumber, monthNumber);
-	$: nextMonthDays = getNextMonthDaysNumbers(lastWeekDayNumber);
+	$: prevMonthDays = getPreviousMonthDaysNumbers(yearNumber, monthNumber);
+	$: days = getMonthDaysNumbers(yearNumber, monthNumber);
+	$: nextMonthDays = getNextMonthDaysNumbers(yearNumber, monthNumber);
 
 	function isToday(day) {
 		const date = new Date();
@@ -47,7 +35,7 @@
 			yearNumber++;
 			monthNumber = 0;
 		}
-	}
+	};
 
 	export const goToPrevMonth = () => {
 		monthNumber--;
@@ -55,7 +43,7 @@
 			yearNumber--;
 			monthNumber = 11;
 		}
-	}
+	};
 </script>
 
 <div class="booapp-calendar">

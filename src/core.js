@@ -18,10 +18,13 @@ export const getLastWeekDayNumberOfMonth = (yearNumber, monthNumber) => {
 	return new Date(yearNumber, monthNumber + 1, 0).getDay();
 };
 
-export const getPreviousMonthDaysNumbers = (
-	firstWeekDayNumber,
-	lastDateOfPrevMonth
-) => {
+export const getPreviousMonthDaysNumbers = (yearNumber, monthNumber) => {
+	let firstWeekDayNumber = getFirstWeekDayNumberOfMonth(
+		yearNumber,
+		monthNumber
+	);
+	let lastDateOfPrevMonth = getLastDateOfMonth(yearNumber, monthNumber - 1);
+
 	if (
 		typeof firstWeekDayNumber !== 'number' ||
 		typeof lastDateOfPrevMonth !== 'number'
@@ -37,7 +40,9 @@ export const getPreviousMonthDaysNumbers = (
 	return result;
 };
 
-export const getMonthDaysNumbers = (lastDateOfMonth) => {
+export const getMonthDaysNumbers = (yearNumber, monthNumber) => {
+	const lastDateOfMonth = getLastDateOfMonth(yearNumber, monthNumber);
+
 	if (typeof lastDateOfMonth !== 'number') return null;
 
 	const result = [];
@@ -49,7 +54,12 @@ export const getMonthDaysNumbers = (lastDateOfMonth) => {
 	return result;
 };
 
-export const getNextMonthDaysNumbers = (lastWeekDayNumber) => {
+export const getNextMonthDaysNumbers = (yearNumber, monthNumber) => {
+	let lastWeekDayNumber = getLastWeekDayNumberOfMonth(
+		yearNumber,
+		monthNumber
+	);
+
 	if (typeof lastWeekDayNumber !== 'number') return null;
 
 	//week days start with zero: 0,1,2,3,4,5,6
