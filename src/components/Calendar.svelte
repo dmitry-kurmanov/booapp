@@ -9,44 +9,60 @@
 		getNextMonthDaysNumbers,
 	} from '../core';
 
-	export let dateInstance = new Date();
+	const dateInstance = new Date();
 
-	const yearNumber = dateInstance.getFullYear();
-	const monthNumber = dateInstance.getMonth();
-	const dateNumber = dateInstance.getDate();
+	export let yearNumber = dateInstance.getFullYear();
+	export let monthNumber = dateInstance.getMonth();
 
-	const monthName = monthsNames[monthNumber];
-	const dateString = dateInstance.toDateString();
-
-	const firstWeekDayNumber = getFirstWeekDayNumberOfMonth(
+	$: monthName = monthsNames[monthNumber];
+	$: firstWeekDayNumber = getFirstWeekDayNumberOfMonth(
 		yearNumber,
 		monthNumber
 	);
-	const lastDateOfPrevMonth = getLastDateOfMonth(yearNumber, monthNumber - 1);
-	let prevMonthDays = getPreviousMonthDaysNumbers(
+
+	$: lastDateOfPrevMonth = getLastDateOfMonth(yearNumber, monthNumber - 1);
+	$: prevMonthDays = getPreviousMonthDaysNumbers(
 		firstWeekDayNumber,
 		lastDateOfPrevMonth
 	);
 
-	const lastDateOfMonth = getLastDateOfMonth(yearNumber, monthNumber);
-	let days = getMonthDaysNumbers(lastDateOfMonth);
+	$: lastDateOfMonth = getLastDateOfMonth(yearNumber, monthNumber);
+	$: days = getMonthDaysNumbers(lastDateOfMonth);
 
-	const lastWeekDayNumber = getLastWeekDayNumberOfMonth(
-		yearNumber,
-		monthNumber
-	);
-	let nextMonthDays = getNextMonthDaysNumbers(lastWeekDayNumber);
+	$: lastWeekDayNumber = getLastWeekDayNumberOfMonth(yearNumber, monthNumber);
+	$: nextMonthDays = getNextMonthDaysNumbers(lastWeekDayNumber);
 
-	const isToday = (day) => {
-		return day === dateNumber;
-	};
+	function isToday(day) {
+		const date = new Date();
+		return (
+			day === date.getDate() &&
+			monthNumber === date.getMonth() &&
+			yearNumber === date.getFullYear()
+		);
+	}
+
+	export const goToNextMonth = () => {
+		monthNumber++;
+		if (monthNumber > 11) {
+			yearNumber++;
+			monthNumber = 0;
+		}
+	}
+
+	export const goToPrevMonth = () => {
+		monthNumber--;
+		if (monthNumber < 0) {
+			yearNumber--;
+			monthNumber = 11;
+		}
+	}
 </script>
 
 <div class="booapp-calendar">
 	<div class="booapp-calendar__header">
-		<button>Prev</button>
+		<button on:click={goToPrevMonth}>Prev</button>
 		<div>{monthName} {yearNumber}</div>
-		<button>Next</button>
+		<button on:click={goToNextMonth}>Next</button>
 	</div>
 
 	<div class="booapp-calendar__weekdays">
