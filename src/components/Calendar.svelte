@@ -48,9 +48,21 @@
 
 <div class="booapp-calendar">
 	<div class="booapp-calendar__header">
-		<button on:click={goToPrevMonth}>Prev</button>
+		<button
+			class="booapp-calendar__prev-month-btn"
+			on:click={goToPrevMonth}
+		>
+			&#8592; Prev
+		</button>
+
 		<div>{monthName} {yearNumber}</div>
-		<button on:click={goToNextMonth}>Next</button>
+
+		<button
+			class="booapp-calendar__next-month-btn"
+			on:click={goToNextMonth}
+		>
+			&#8594; Next
+		</button>
 	</div>
 
 	<div class="booapp-calendar__weekdays">
@@ -152,5 +164,21 @@
 	.booapp-calendar__day--today {
 		color: #fff;
 		background-color: tomato;
+	}
+
+	.booapp-calendar__prev-month-btn,
+	.booapp-calendar__next-month-btn {
+		background-color: white;
+		color: tomato;
+		border: 1px solid tomato;
+		border-radius: 50px;
+		outline: none;
+		padding: 1rem;
+		margin: 0 2rem;
+		font-weight: bold;
+		cursor: pointer;
+		&:hover {
+			box-shadow: 0 0 3px 1px tomato;
+		}
 	}
 </style>
