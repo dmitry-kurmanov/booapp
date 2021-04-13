@@ -1,9 +1,6 @@
 <script>
 	import { monthsNames, weekDaysNames } from '../strings';
 	import {
-		getLastDateOfMonth,
-		getFirstWeekDayNumberOfMonth,
-		getLastWeekDayNumberOfMonth,
 		getPreviousMonthDaysNumbers,
 		getMonthDaysNumbers,
 		getNextMonthDaysNumbers,
@@ -13,9 +10,22 @@
 
 	export let yearNumber = dateInstance.getFullYear();
 	export let monthNumber = dateInstance.getMonth();
+	export const goToNextMonth = () => {
+		monthNumber++;
+		if (monthNumber > 11) {
+			yearNumber++;
+			monthNumber = 0;
+		}
+	};
+	export const goToPrevMonth = () => {
+		monthNumber--;
+		if (monthNumber < 0) {
+			yearNumber--;
+			monthNumber = 11;
+		}
+	};
 
 	$: monthName = monthsNames[monthNumber];
-
 	$: prevMonthDays = getPreviousMonthDaysNumbers(yearNumber, monthNumber);
 	$: days = getMonthDaysNumbers(yearNumber, monthNumber);
 	$: nextMonthDays = getNextMonthDaysNumbers(yearNumber, monthNumber);
@@ -28,22 +38,6 @@
 			yearNumber === date.getFullYear()
 		);
 	}
-
-	export const goToNextMonth = () => {
-		monthNumber++;
-		if (monthNumber > 11) {
-			yearNumber++;
-			monthNumber = 0;
-		}
-	};
-
-	export const goToPrevMonth = () => {
-		monthNumber--;
-		if (monthNumber < 0) {
-			yearNumber--;
-			monthNumber = 11;
-		}
-	};
 </script>
 
 <div class="booapp-calendar">
