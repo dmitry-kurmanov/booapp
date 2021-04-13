@@ -55,7 +55,7 @@
 			&#8592; Prev
 		</button>
 
-		<div>{monthName} {yearNumber}</div>
+		<div class="booapp-calendar__header-info">{monthName} {yearNumber}</div>
 
 		<button
 			class="booapp-calendar__next-month-btn"
@@ -100,12 +100,11 @@
 <style lang="scss" global>
 	.booapp-calendar {
 		width: 45rem;
-		height: 40rem;
+		height: 44rem;
 		box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4);
 	}
 
 	.booapp-calendar__header {
-		font-size: 3.5rem;
 		font-weight: 400;
 		text-transform: uppercase;
 		letter-spacing: 0.2rem;
@@ -113,6 +112,31 @@
 		justify-content: center;
 		height: 5rem;
 		align-items: center;
+	}
+
+	.booapp-calendar__header-info {
+		font-size: 2rem;
+		flex-grow: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.booapp-calendar__prev-month-btn,
+	.booapp-calendar__next-month-btn {
+		background-color: white;
+		color: tomato;
+		border: 1px solid tomato;
+		border-radius: 50px;
+		outline: none;
+		padding: 1rem;
+		margin: 0 2rem;
+		font-weight: bold;
+		cursor: pointer;
+		flex-basis: 10em;
+		flex-shrink: 0;
+		&:hover {
+			box-shadow: 0 0 3px 1px tomato;
+		}
 	}
 
 	.booapp-calendar__day--prev-month,
@@ -164,21 +188,5 @@
 	.booapp-calendar__day--today {
 		color: #fff;
 		background-color: tomato;
-	}
-
-	.booapp-calendar__prev-month-btn,
-	.booapp-calendar__next-month-btn {
-		background-color: white;
-		color: tomato;
-		border: 1px solid tomato;
-		border-radius: 50px;
-		outline: none;
-		padding: 1rem;
-		margin: 0 2rem;
-		font-weight: bold;
-		cursor: pointer;
-		&:hover {
-			box-shadow: 0 0 3px 1px tomato;
-		}
 	}
 </style>
