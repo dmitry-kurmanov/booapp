@@ -19,17 +19,14 @@ export const getLastWeekDayNumberOfMonth = (yearNumber, monthNumber) => {
 };
 
 export const getPreviousMonthDaysNumbers = (yearNumber, monthNumber) => {
+	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
+		return null;
+
 	let firstWeekDayNumber = getFirstWeekDayNumberOfMonth(
 		yearNumber,
 		monthNumber
 	);
 	let lastDateOfPrevMonth = getLastDateOfMonth(yearNumber, monthNumber - 1);
-
-	if (
-		typeof firstWeekDayNumber !== 'number' ||
-		typeof lastDateOfPrevMonth !== 'number'
-	)
-		return null;
 
 	let result = [];
 
@@ -40,10 +37,10 @@ export const getPreviousMonthDaysNumbers = (yearNumber, monthNumber) => {
 	return result;
 };
 
-export const getMonthDaysNumbers = (yearNumber, monthNumber) => {
+export const getCurrentMonthDaysNumbers = (yearNumber, monthNumber) => {
+	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
+		return null;
 	const lastDateOfMonth = getLastDateOfMonth(yearNumber, monthNumber);
-
-	if (typeof lastDateOfMonth !== 'number') return null;
 
 	const result = [];
 
@@ -54,20 +51,36 @@ export const getMonthDaysNumbers = (yearNumber, monthNumber) => {
 	return result;
 };
 
-export const getNextMonthDaysNumbers = (yearNumber, monthNumber) => {
+export const getNextMonthDaysNumbers = (
+	yearNumber,
+	monthNumber,
+	previousDaysCount
+) => {
+	if (
+		typeof yearNumber !== 'number' ||
+		typeof monthNumber !== 'number' ||
+		typeof previousDaysCount !== 'number'
+	)
+		return null;
+
 	let lastWeekDayNumber = getLastWeekDayNumberOfMonth(
 		yearNumber,
 		monthNumber
 	);
 
-	if (typeof lastWeekDayNumber !== 'number') return null;
-
 	//week days start with zero: 0,1,2,3,4,5,6
-	const nextMonthDaysCount = 6 - lastWeekDayNumber;
+	const nextMonthDaysCountInLastWeek = 6 - lastWeekDayNumber;
 	let result = [];
 
-	for (let i = 1; i <= nextMonthDaysCount; i++) {
+	for (let i = 1; i <= nextMonthDaysCountInLastWeek; i++) {
 		result.push(i);
+	}
+
+	//generate additional full week from the next month
+	if (previousDaysCount <= 35) {
+		for (let j = 1; j <= 7; j++) {
+			result.push(nextMonthDaysCountInLastWeek + j);
+		}
 	}
 
 	return result;

@@ -2,7 +2,7 @@
 	import { monthsNames, weekDaysNames } from '../strings';
 	import {
 		getPreviousMonthDaysNumbers,
-		getMonthDaysNumbers,
+		getCurrentMonthDaysNumbers,
 		getNextMonthDaysNumbers,
 	} from '../core';
 
@@ -27,8 +27,12 @@
 
 	$: monthName = monthsNames[monthNumber];
 	$: prevMonthDays = getPreviousMonthDaysNumbers(yearNumber, monthNumber);
-	$: days = getMonthDaysNumbers(yearNumber, monthNumber);
-	$: nextMonthDays = getNextMonthDaysNumbers(yearNumber, monthNumber);
+	$: currentMonthDays = getCurrentMonthDaysNumbers(yearNumber, monthNumber);
+	$: nextMonthDays = getNextMonthDaysNumbers(
+		yearNumber,
+		monthNumber,
+		prevMonthDays.length + currentMonthDays.length
+	);
 
 	function isToday(day) {
 		const date = new Date();
@@ -74,7 +78,7 @@
 			</div>
 		{/each}
 
-		{#each days as day}
+		{#each currentMonthDays as day}
 			<div
 				class="booapp-calendar__day"
 				class:booapp-calendar__day--today={isToday(day)}
