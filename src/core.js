@@ -85,3 +85,32 @@ export const getNextMonthDaysNumbers = (
 
 	return result;
 };
+
+export const isToday = (yearNumber, monthNumber, dayNumber) => {
+	if (
+		typeof yearNumber !== 'number' ||
+		typeof monthNumber !== 'number' ||
+		typeof dayNumber !== 'number'
+	)
+		return null;
+
+	const date = new Date();
+	return (
+		dayNumber === date.getDate() &&
+		monthNumber === date.getMonth() &&
+		yearNumber === date.getFullYear()
+	);
+};
+
+export const isWeekend = (yearNumber, monthNumber, dayNumber) => {
+	if (
+		typeof yearNumber !== 'number' ||
+		typeof monthNumber !== 'number' ||
+		typeof dayNumber !== 'number'
+	)
+		return null;
+
+	const date = new Date(yearNumber, monthNumber, dayNumber);
+	// 0 - Sunday, 6 - Saturday
+	return date.getDay() === 0 || date.getDay() === 6;
+};
