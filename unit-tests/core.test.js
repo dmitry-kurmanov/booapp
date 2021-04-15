@@ -94,37 +94,27 @@ test('getCurrentMonthDaysNumbers', () => {
 
 test('getNextMonthDaysNumbers', () => {
 	const yearNumber = 2021;
-
 	let monthNumber = 3; // April
-	let prevMonthDays = getPreviousMonthDaysNumbers(yearNumber, monthNumber);
-	let currentMonthDays = getCurrentMonthDaysNumbers(yearNumber, monthNumber);
-	let previousDaysCount = prevMonthDays.length + currentMonthDays.length;
 
 	expect(getNextMonthDaysNumbers(undefined)).toEqual(null);
 	expect(getNextMonthDaysNumbers()).toBe(null);
 	expect(getNextMonthDaysNumbers('a')).toBe(null);
 	expect(
-		getNextMonthDaysNumbers(yearNumber, undefined, previousDaysCount)
+		getNextMonthDaysNumbers(yearNumber, undefined)
 	).toBe(null);
 	expect(
-		getNextMonthDaysNumbers(undefined, monthNumber, previousDaysCount)
+		getNextMonthDaysNumbers(undefined, monthNumber)
 	).toEqual(null);
-	expect(getNextMonthDaysNumbers(yearNumber, monthNumber, undefined)).toEqual(
-		null
-	);
 
 	// next days from the May (current Month is April)
 	expect(
-		getNextMonthDaysNumbers(yearNumber, monthNumber, previousDaysCount)
+		getNextMonthDaysNumbers(yearNumber, monthNumber)
 	).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
 
 	// next days from the June (current Month is May)
 	monthNumber = 4; // May
-	prevMonthDays = getPreviousMonthDaysNumbers(yearNumber, monthNumber);
-	currentMonthDays = getCurrentMonthDaysNumbers(yearNumber, monthNumber);
-	previousDaysCount = prevMonthDays.length + currentMonthDays.length;
 	expect(
-		getNextMonthDaysNumbers(yearNumber, monthNumber, previousDaysCount)
+		getNextMonthDaysNumbers(yearNumber, monthNumber)
 	).toEqual([1, 2, 3, 4, 5]);
 });
 

@@ -53,13 +53,11 @@ export const getCurrentMonthDaysNumbers = (yearNumber, monthNumber) => {
 
 export const getNextMonthDaysNumbers = (
 	yearNumber,
-	monthNumber,
-	previousDaysCount
+	monthNumber
 ) => {
 	if (
 		typeof yearNumber !== 'number' ||
-		typeof monthNumber !== 'number' ||
-		typeof previousDaysCount !== 'number'
+		typeof monthNumber !== 'number' 
 	)
 		return null;
 
@@ -67,6 +65,10 @@ export const getNextMonthDaysNumbers = (
 		yearNumber,
 		monthNumber
 	);
+
+	let prevMonthDays = getPreviousMonthDaysNumbers(yearNumber, monthNumber);
+	let currentMonthDays = getCurrentMonthDaysNumbers(yearNumber, monthNumber);
+	let previousDaysCount = prevMonthDays.length + currentMonthDays.length;
 
 	//week days start with zero: 0,1,2,3,4,5,6
 	const nextMonthDaysCountInLastWeek = 6 - lastWeekDayNumber;

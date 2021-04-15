@@ -82,7 +82,7 @@ exports[`snapshot 1`] = `
       class="booapp-calendar__days"
     >
       <div
-        class="booapp-calendar__day booapp-calendar__day--prev-month"
+        class="booapp-calendar__day booapp-calendar__day--prev-month booapp-calendar__day--weekend"
       >
         28
       </div>
@@ -113,12 +113,12 @@ exports[`snapshot 1`] = `
         2
       </div>
       <div
-        class="booapp-calendar__day"
+        class="booapp-calendar__day booapp-calendar__day--weekend"
       >
         3
       </div>
       <div
-        class="booapp-calendar__day"
+        class="booapp-calendar__day booapp-calendar__day--weekend"
       >
         4
       </div>
@@ -148,12 +148,12 @@ exports[`snapshot 1`] = `
         9
       </div>
       <div
-        class="booapp-calendar__day"
+        class="booapp-calendar__day booapp-calendar__day--weekend"
       >
         10
       </div>
       <div
-        class="booapp-calendar__day"
+        class="booapp-calendar__day booapp-calendar__day--weekend"
       >
         11
       </div>
@@ -183,12 +183,12 @@ exports[`snapshot 1`] = `
         16
       </div>
       <div
-        class="booapp-calendar__day"
+        class="booapp-calendar__day booapp-calendar__day--weekend"
       >
         17
       </div>
       <div
-        class="booapp-calendar__day"
+        class="booapp-calendar__day booapp-calendar__day--weekend"
       >
         18
       </div>
@@ -218,12 +218,12 @@ exports[`snapshot 1`] = `
         23
       </div>
       <div
-        class="booapp-calendar__day"
+        class="booapp-calendar__day booapp-calendar__day--weekend"
       >
         24
       </div>
       <div
-        class="booapp-calendar__day"
+        class="booapp-calendar__day booapp-calendar__day--weekend"
       >
         25
       </div>
@@ -254,13 +254,13 @@ exports[`snapshot 1`] = `
       </div>
        
       <div
-        class="booapp-calendar__day booapp-calendar__day--next-month"
+        class="booapp-calendar__day booapp-calendar__day--next-month booapp-calendar__day--weekend"
       >
         1
          
       </div>
       <div
-        class="booapp-calendar__day booapp-calendar__day--next-month"
+        class="booapp-calendar__day booapp-calendar__day--next-month booapp-calendar__day--weekend"
       >
         2
          
@@ -296,7 +296,7 @@ exports[`snapshot 1`] = `
          
       </div>
       <div
-        class="booapp-calendar__day booapp-calendar__day--next-month"
+        class="booapp-calendar__day booapp-calendar__day--next-month booapp-calendar__day--weekend"
       >
         8
          

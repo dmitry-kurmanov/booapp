@@ -1,5 +1,9 @@
 import { BooApp } from './testbuild.js';
 
+afterEach(() => {
+	document.body.innerHTML = '';
+});
+
 test('snapshot', () => {
 	new BooApp({
 		target: document.body,

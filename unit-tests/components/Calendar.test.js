@@ -1,5 +1,9 @@
 import { Calendar } from './testbuild.js';
 
+afterEach(() => {
+	document.body.innerHTML = "";
+});
+
 test('monthNumber', () => {
 	const calendar = new Calendar({
 		target: document.body,

@@ -64,7 +64,7 @@
 		"dev": "rollup -c -w",
 		"lint": "eslint --color --ignore-path .gitignore .",
 		"start": "sirv public",
-		"test": "jest --watch",
+		"test": "jest --watchAll",
 		"test-single": "jest"
 	},
 	"svelte": "src/components/BooApp.svelte",

@@ -30,11 +30,7 @@
 	$: monthName = monthsNames[monthNumber];
 	$: prevMonthDays = getPreviousMonthDaysNumbers(yearNumber, monthNumber);
 	$: currentMonthDays = getCurrentMonthDaysNumbers(yearNumber, monthNumber);
-	$: nextMonthDays = getNextMonthDaysNumbers(
-		yearNumber,
-		monthNumber,
-		prevMonthDays.length + currentMonthDays.length
-	);
+	$: nextMonthDays = getNextMonthDaysNumbers(yearNumber, monthNumber);
 </script>
 
 <div class="booapp-calendar">
