@@ -1,10 +1,10 @@
 import { BooApp } from './testbuild.js';
 
-test('currentDate', () => {
-	const instance = new BooApp({
+test('snapshot', () => {
+	new BooApp({
 		target: document.body,
 		props: {},
 	});
-
-	expect(!!instance).toBe(true);
+	const boappNode = document.querySelector('.booapp');
+	expect(boappNode).toMatchSnapshot();
 });

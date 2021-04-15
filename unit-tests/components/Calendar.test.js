@@ -20,13 +20,12 @@ test('yearNumber', () => {
 	expect(calendar.yearNumber).toEqual(currentYear);
 });
 
-
 test('goToNextMonth', () => {
 	const calendar = new Calendar({
 		target: document.body,
 		props: {},
 	});
-	
+
 	const date = new Date();
 	const currentMonth = date.getMonth();
 	const currentYear = date.getFullYear();
@@ -47,7 +46,7 @@ test('goToPrevMonth', () => {
 		target: document.body,
 		props: {},
 	});
-	
+
 	const date = new Date();
 	const currentMonth = date.getMonth();
 	const currentYear = date.getFullYear();
@@ -61,4 +60,13 @@ test('goToPrevMonth', () => {
 	calendar.goToPrevMonth();
 	expect(calendar.yearNumber).toEqual(currentYear - 1);
 	expect(calendar.monthNumber).toEqual(11);
+});
+
+test('snapshot', () => {
+	new Calendar({
+		target: document.body,
+		props: {},
+	});
+	const calendarNode = document.querySelector('.booapp-calendar');
+	expect(calendarNode).toMatchSnapshot();
 });
