@@ -86,7 +86,11 @@
 					monthNumber,
 					day
 				)}
-				class:booapp-calendar__day--today={isToday(day)}
+				class:booapp-calendar__day--today={isToday(
+					yearNumber,
+					monthNumber,
+					day
+				)}
 			>
 				{day}
 			</div>
