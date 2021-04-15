@@ -5,6 +5,8 @@ import {
 	getPreviousMonthDaysNumbers,
 	getCurrentMonthDaysNumbers,
 	getNextMonthDaysNumbers,
+	isToday,
+	isWeekend,
 } from '../src/core.js';
 
 test('getLastDateOfMonth', () => {
@@ -123,5 +125,50 @@ test('getNextMonthDaysNumbers', () => {
 	previousDaysCount = prevMonthDays.length + currentMonthDays.length;
 	expect(
 		getNextMonthDaysNumbers(yearNumber, monthNumber, previousDaysCount)
-	).toEqual([1,2,3,4,5]);
+	).toEqual([1, 2, 3, 4, 5]);
+});
+
+test('isToday', () => {
+	const dateInstance = new Date();
+	const yearNumber = dateInstance.getFullYear();
+	const monthNumber = dateInstance.getMonth();
+	const dayNumber = dateInstance.getDate();
+
+	expect(isToday(undefined, monthNumber, dayNumber)).toEqual(null);
+	expect(isToday(yearNumber, undefined, dayNumber)).toEqual(null);
+	expect(isToday(yearNumber, monthNumber, undefined)).toEqual(null);
+	expect(isToday('a', 'b', 'c')).toBe(null);
+
+	expect(isToday(yearNumber, monthNumber, dayNumber)).toBe(true);
+});
+
+test('isWeekend', () => {
+	const yearNumber = 2021;
+	let monthNumber = 3; // April
+	let dayNumber = 11;
+
+	expect(isWeekend(undefined, monthNumber, dayNumber)).toEqual(null);
+	expect(isWeekend(yearNumber, undefined, dayNumber)).toEqual(null);
+	expect(isWeekend(yearNumber, monthNumber, undefined)).toEqual(null);
+	expect(isWeekend('a', 'b', 'c')).toBe(null);
+
+	expect(isWeekend(yearNumber, monthNumber, dayNumber)).toBe(true);
+	dayNumber = 10;
+	expect(isWeekend(yearNumber, monthNumber, dayNumber)).toBe(true);
+	dayNumber = 9;
+	expect(isWeekend(yearNumber, monthNumber, dayNumber)).toBe(false);
+
+	//March
+	monthNumber = 2;
+	dayNumber = 28;
+	expect(isWeekend(yearNumber, monthNumber, dayNumber)).toBe(true);
+	dayNumber = 29;
+	expect(isWeekend(yearNumber, monthNumber, dayNumber)).toBe(false);
+
+	//May
+	monthNumber = 4;
+	dayNumber = 2;
+	expect(isWeekend(yearNumber, monthNumber, dayNumber)).toBe(true);
+	dayNumber = 3;
+	expect(isWeekend(yearNumber, monthNumber, dayNumber)).toBe(false);
 });

@@ -4,6 +4,8 @@
 		getPreviousMonthDaysNumbers,
 		getCurrentMonthDaysNumbers,
 		getNextMonthDaysNumbers,
+		isToday,
+		isWeekend,
 	} from '../core';
 
 	const dateInstance = new Date();
@@ -33,15 +35,6 @@
 		monthNumber,
 		prevMonthDays.length + currentMonthDays.length
 	);
-
-	function isToday(day) {
-		const date = new Date();
-		return (
-			day === date.getDate() &&
-			monthNumber === date.getMonth() &&
-			yearNumber === date.getFullYear()
-		);
-	}
 </script>
 
 <div class="booapp-calendar">
@@ -73,7 +66,14 @@
 
 	<div class="booapp-calendar__days">
 		{#each prevMonthDays as day}
-			<div class="booapp-calendar__day booapp-calendar__day--prev-month">
+			<div
+				class="booapp-calendar__day booapp-calendar__day--prev-month"
+				class:booapp-calendar__day--weekend={isWeekend(
+					yearNumber,
+					monthNumber - 1,
+					day
+				)}
+			>
 				{day}
 			</div>
 		{/each}
@@ -81,6 +81,11 @@
 		{#each currentMonthDays as day}
 			<div
 				class="booapp-calendar__day"
+				class:booapp-calendar__day--weekend={isWeekend(
+					yearNumber,
+					monthNumber,
+					day
+				)}
 				class:booapp-calendar__day--today={isToday(day)}
 			>
 				{day}
@@ -88,7 +93,14 @@
 		{/each}
 
 		{#each nextMonthDays as day}
-			<div class="booapp-calendar__day booapp-calendar__day--next-month">
+			<div
+				class="booapp-calendar__day booapp-calendar__day--next-month"
+				class:booapp-calendar__day--weekend={isWeekend(
+					yearNumber,
+					monthNumber + 1,
+					day
+				)}
+			>
 				{day}
 			</div>
 		{/each}
@@ -186,5 +198,9 @@
 	.booapp-calendar__day--today {
 		color: #fff;
 		background-color: tomato;
+	}
+
+	.booapp-calendar__day--weekend {
+		color: tomato;
 	}
 </style>
