@@ -170,7 +170,7 @@ exports[`snapshot 1`] = `
       14
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--today"
+      class="booapp-calendar__day"
     >
       15
     </div>
@@ -180,7 +180,7 @@ exports[`snapshot 1`] = `
       16
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--weekend"
+      class="booapp-calendar__day booapp-calendar__day--weekend booapp-calendar__day--today"
     >
       17
     </div>
