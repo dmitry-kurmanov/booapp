@@ -203,4 +203,8 @@
 	.booapp-calendar__day--weekend {
 		color: tomato;
 	}
+
+	.booapp-calendar__day--today.booapp-calendar__day--weekend {
+		color: white;
+	}
 </style>
