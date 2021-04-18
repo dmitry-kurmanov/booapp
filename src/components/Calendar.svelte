@@ -114,6 +114,10 @@
 		box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4);
 	}
 
+	.booapp-calendar * {
+		box-sizing: border-box;
+	}
+
 	.booapp-calendar__header {
 		font-weight: 400;
 		text-transform: uppercase;
