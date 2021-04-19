@@ -35,7 +35,8 @@
 		"start-server-and-test": "^1.12.1",
 		"svelte": "^3.37.0",
 		"svelte-loader": "^3.1.1",
-		"svelte-preprocess": "^4.7.0"
+		"svelte-preprocess": "^4.7.0",
+		"testcafe": "^1.14.0"
 	},
 	"files": [
 		"dist"
@@ -73,8 +74,9 @@
 		"start": "sirv public",
 		"test": "jest --watchAll",
 		"test-single": "jest",
-		"storybook": "start-storybook -p 6006",
-		"build-storybook": "build-storybook"
+		"storybook": "start-storybook -p 6777",
+		"build-storybook": "build-storybook",
+		"testcafe": "testcafe chrome src/**/*testcafe* --reporter minimal"
 	},
 	"svelte": "src/components/BooApp.svelte",
 	"version": "0.0.2",
