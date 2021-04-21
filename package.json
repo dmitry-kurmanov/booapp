@@ -76,7 +76,7 @@
 		"test-single": "jest",
 		"storybook": "start-storybook -p 6777",
 		"build-storybook": "build-storybook",
-		"testcafe": "testcafe chrome src/**/*testcafe* --reporter minimal"
+		"testcafe": "testcafe chrome src/**/*testcafe* --reporter minimal --screenshots src/components"
 	},
 	"svelte": "src/components/BooApp.svelte",
 	"version": "0.0.2",
