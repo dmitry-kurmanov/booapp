@@ -4,14 +4,13 @@
 		getPreviousMonthDaysNumbers,
 		getCurrentMonthDaysNumbers,
 		getNextMonthDaysNumbers,
-		isToday,
 		isWeekend,
 	} from '../core';
 
-	const dateInstance = new Date();
+	export let currentDateString = null;
+	export let yearNumber;
+	export let monthNumber;
 
-	export let yearNumber = dateInstance.getFullYear();
-	export let monthNumber = dateInstance.getMonth();
 	export const goToNextMonth = () => {
 		monthNumber++;
 		if (monthNumber > 11) {
@@ -27,6 +26,10 @@
 		}
 	};
 
+	$: dateInstance = currentDateString ? new Date(currentDateString) : new Date();
+	$: dateNumber = dateInstance.getDate();
+	$: yearNumber = dateInstance.getFullYear();
+	$: monthNumber = dateInstance.getMonth();
 	$: monthName = monthsNames[monthNumber];
 	$: prevMonthDays = getPreviousMonthDaysNumbers(yearNumber, monthNumber);
 	$: currentMonthDays = getCurrentMonthDaysNumbers(yearNumber, monthNumber);
@@ -75,6 +78,7 @@
 		{/each}
 
 		{#each currentMonthDays as day}
+			<!-- svelte-ignore missing-declaration -->
 			<div
 				class="booapp-calendar__day"
 				class:booapp-calendar__day--weekend={isWeekend(
@@ -82,11 +86,7 @@
 					monthNumber,
 					day
 				)}
-				class:booapp-calendar__day--today={isToday(
-					yearNumber,
-					monthNumber,
-					day
-				)}
+				class:booapp-calendar__day--today={day === dateNumber}
 			>
 				{day}
 			</div>

@@ -1,9 +1,10 @@
 <script>
 	import Calendar from './Calendar.svelte';
+	export let json = {};
 </script>
 
 <div class="booapp">
-	<Calendar />
+	<Calendar currentDateString={json.currentDateString}/>
 </div>
 
 <style lang="scss" global>

@@ -14,7 +14,9 @@
 		<div id="booappElement"></div>
 
 		<script>
-			var json = {};
+			var json = {
+				currentDateString: '2021-04-27',
+			};
 			var rootNode = document.querySelector('#booappElement');
 			var booApp = new BooApp.Model(json);
 			booApp.render(rootNode);

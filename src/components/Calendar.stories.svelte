@@ -24,7 +24,6 @@
 <Story
 	name="Primary"
 	args={{
-		primary: true,
-		label: 'Button',
+		currentDateString: '2021-04-27',
 	}}
 />

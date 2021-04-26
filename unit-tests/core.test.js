@@ -118,20 +118,6 @@ test('getNextMonthDaysNumbers', () => {
 	).toEqual([1, 2, 3, 4, 5]);
 });
 
-test('isToday', () => {
-	const dateInstance = new Date();
-	const yearNumber = dateInstance.getFullYear();
-	const monthNumber = dateInstance.getMonth();
-	const dayNumber = dateInstance.getDate();
-
-	expect(isToday(undefined, monthNumber, dayNumber)).toEqual(null);
-	expect(isToday(yearNumber, undefined, dayNumber)).toEqual(null);
-	expect(isToday(yearNumber, monthNumber, undefined)).toEqual(null);
-	expect(isToday('a', 'b', 'c')).toBe(null);
-
-	expect(isToday(yearNumber, monthNumber, dayNumber)).toBe(true);
-});
-
 test('isWeekend', () => {
 	const yearNumber = 2021;
 	let monthNumber = 3; // April

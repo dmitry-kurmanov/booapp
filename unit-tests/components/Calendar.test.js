@@ -1,27 +1,7 @@
 import { Calendar } from './testbuild.js';
 
 afterEach(() => {
-	document.body.innerHTML = "";
-});
-
-test('monthNumber', () => {
-	const calendar = new Calendar({
-		target: document.body,
-		props: {},
-	});
-	const currentMonth = new Date().getMonth();
-
-	expect(calendar.monthNumber).toEqual(currentMonth);
-});
-
-test('yearNumber', () => {
-	const calendar = new Calendar({
-		target: document.body,
-		props: {},
-	});
-	const currentYear = new Date().getFullYear();
-
-	expect(calendar.yearNumber).toEqual(currentYear);
+	document.body.innerHTML = '';
 });
 
 test('goToNextMonth', () => {
@@ -69,7 +49,9 @@ test('goToPrevMonth', () => {
 test('snapshot', () => {
 	new Calendar({
 		target: document.body,
-		props: {},
+		props: {
+			currentDateString: '2021-04-27',
+		},
 	});
 	const calendarNode = document.querySelector('.booapp-calendar');
 	expect(calendarNode).toMatchSnapshot();
