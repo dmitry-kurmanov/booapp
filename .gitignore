@@ -2,4 +2,6 @@
 **/node_modules/**
 **/public/booapp.*
 
+report
+
 unit-tests/components/testbuild.js

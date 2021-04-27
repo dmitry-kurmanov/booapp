@@ -12,6 +12,7 @@
 		"@storybook/svelte": "^6.2.8",
 		"autoprefixer": "^10.2.5",
 		"babel-loader": "^8.2.2",
+		"creevey": "0.7.27",
 		"eslint": "^7.24.0",
 		"eslint-config-prettier": "^8.2.0",
 		"eslint-plugin-svelte3": "^3.1.2",
@@ -74,7 +75,9 @@
 		"start": "sirv public",
 		"test": "jest --watchAll",
 		"test-single": "jest",
-		"storybook": "start-storybook -p 6777",
+		"storybook": "start-storybook -p 6006",
+		"creevey": "creevey --ui",
+		"creevey:update": "creevey --udpate",
 		"build-storybook": "build-storybook",
 		"testcafe": "testcafe chrome src/**/*testcafe* --reporter minimal --screenshots src/components"
 	},
