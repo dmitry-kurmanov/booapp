@@ -228,12 +228,12 @@ exports[`snapshot 1`] = `
         25
       </div>
       <div
-        class="booapp-calendar__day booapp-calendar__day--today"
+        class="booapp-calendar__day"
       >
         26
       </div>
       <div
-        class="booapp-calendar__day"
+        class="booapp-calendar__day booapp-calendar__day--today"
       >
         27
       </div>
