@@ -1,15 +1,13 @@
 <script>
-	import { monthsNames, weekDaysNames } from '../strings';
-	import {
-		getPreviousMonthDaysNumbers,
-		getCurrentMonthDaysNumbers,
-		getNextMonthDaysNumbers,
-		isWeekend,
-	} from '../core';
+	import { monthNames, weekDayNames, weekDayShortNames } from '../strings';
+	import { getDays } from '../core';
 
 	export let currentDateString = null;
-	export let yearNumber;
-	export let monthNumber;
+
+	let currentDateInstance = new Date();
+	$: currentDateInstance = currentDateString
+		? new Date(currentDateString)
+		: new Date();
 
 	export const goToNextMonth = () => {
 		monthNumber++;
@@ -25,30 +23,47 @@
 			monthNumber = 11;
 		}
 	};
+	export let yearNumber = currentDateInstance.getFullYear();
+	export let monthNumber = currentDateInstance.getMonth();
 
-	$: dateInstance = currentDateString ? new Date(currentDateString) : new Date();
-	$: dateNumber = dateInstance.getDate();
-	$: yearNumber = dateInstance.getFullYear();
-	$: monthNumber = dateInstance.getMonth();
-	$: monthName = monthsNames[monthNumber];
-	$: prevMonthDays = getPreviousMonthDaysNumbers(yearNumber, monthNumber);
-	$: currentMonthDays = getCurrentMonthDaysNumbers(yearNumber, monthNumber);
-	$: nextMonthDays = getNextMonthDaysNumbers(yearNumber, monthNumber);
+	export const selectDate = (newDateNumber) => {
+		selectedDateNumber = newDateNumber;
+		selectedMonthNumber = monthNumber;
+	};
+	let selectedMonthNumber = currentDateInstance.getMonth();
+	let selectedDateNumber = currentDateInstance.getDate();
+	function isSelectedDate(dateNumber) {
+		return (
+			selectedMonthNumber === monthNumber &&
+			selectedDateNumber === dateNumber
+		);
+	}
+
+	$: monthName = monthNames[monthNumber];
+	$: days = getDays(yearNumber, monthNumber);
+	$: currentWeekDay =
+		weekDayNames[
+			new Date(yearNumber, monthNumber, selectedDateNumber).getDay()
+		];
 </script>
 
 <div class="booapp-calendar">
 	<div class="booapp-calendar__header">
 		<button
-			class="booapp-calendar__prev-month-btn"
+			class="booapp-calendar__go-to-prev-month"
 			on:click={goToPrevMonth}
 		>
 			&#8592; Prev
 		</button>
 
-		<div class="booapp-calendar__header-info">{monthName} {yearNumber}</div>
+		<div class="booapp-calendar__header-info">
+			{monthName}
+			{yearNumber}
+			{currentWeekDay}
+		</div>
 
 		<button
-			class="booapp-calendar__next-month-btn"
+			class="booapp-calendar__go-to-next-month"
 			on:click={goToNextMonth}
 		>
 			&#8594; Next
@@ -56,52 +71,24 @@
 	</div>
 
 	<div class="booapp-calendar__weekdays">
-		{#each weekDaysNames as weekDayName}
+		{#each weekDayShortNames as weekDayShortName}
 			<div class="booapp-calendar__weekday">
-				{weekDayName}
+				{weekDayShortName}
 			</div>
 		{/each}
 	</div>
 
 	<div class="booapp-calendar__days">
-		{#each prevMonthDays as day}
+		{#each days as day}
 			<div
-				class="booapp-calendar__day booapp-calendar__day--prev-month"
-				class:booapp-calendar__day--weekend={isWeekend(
-					yearNumber,
-					monthNumber - 1,
-					day
-				)}
-			>
-				{day}
-			</div>
-		{/each}
-
-		{#each currentMonthDays as day}
-			<!-- svelte-ignore missing-declaration -->
-			<div
+				on:click={selectDate(day.number)}
 				class="booapp-calendar__day"
-				class:booapp-calendar__day--weekend={isWeekend(
-					yearNumber,
-					monthNumber,
-					day
-				)}
-				class:booapp-calendar__day--today={day === dateNumber}
+				class:booapp-calendar__day--prev-or-next-month={day.isFromPrevOrNextMonth}
+				class:booapp-calendar__day--weekend={day.isWeekend}
+				class:booapp-calendar__day--selected-day={!day.isFromPrevOrNextMonth &&
+					isSelectedDate(day.number)}
 			>
-				{day}
-			</div>
-		{/each}
-
-		{#each nextMonthDays as day}
-			<div
-				class="booapp-calendar__day booapp-calendar__day--next-month"
-				class:booapp-calendar__day--weekend={isWeekend(
-					yearNumber,
-					monthNumber + 1,
-					day
-				)}
-			>
-				{day}
+				{day.number}
 			</div>
 		{/each}
 	</div>
@@ -135,8 +122,8 @@
 		align-items: center;
 		justify-content: center;
 	}
-	.booapp-calendar__prev-month-btn,
-	.booapp-calendar__next-month-btn {
+	.booapp-calendar__go-to-prev-month,
+	.booapp-calendar__go-to-next-month {
 		background-color: white;
 		color: tomato;
 		border: 1px solid tomato;
@@ -153,8 +140,7 @@
 		}
 	}
 
-	.booapp-calendar__day--prev-month,
-	.booapp-calendar__day--next-month {
+	.booapp-calendar__day--prev-or-next-month {
 		opacity: 0.5;
 	}
 
@@ -195,11 +181,11 @@
 		transition: background-color 0.2s;
 	}
 
-	.booapp-calendar__day:hover:not(.booapp-calendar__day--today) {
+	.booapp-calendar__day:hover:not(.booapp-calendar__day--selected-day) {
 		border: 0.2rem solid tomato;
 		cursor: pointer;
 	}
-	.booapp-calendar__day--today {
+	.booapp-calendar__day--selected-day {
 		color: #fff;
 		background-color: tomato;
 	}
@@ -208,7 +194,7 @@
 		color: tomato;
 	}
 
-	.booapp-calendar__day--today.booapp-calendar__day--weekend {
+	.booapp-calendar__day--selected-day.booapp-calendar__day--weekend {
 		color: white;
 	}
 </style>

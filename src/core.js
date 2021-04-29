@@ -18,7 +18,7 @@ export const getLastWeekDayNumberOfMonth = (yearNumber, monthNumber) => {
 	return new Date(yearNumber, monthNumber + 1, 0).getDay();
 };
 
-export const getPreviousMonthDaysNumbers = (yearNumber, monthNumber) => {
+export const getPreviousMonthDayNumbers = (yearNumber, monthNumber) => {
 	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
 		return null;
 
@@ -37,7 +37,7 @@ export const getPreviousMonthDaysNumbers = (yearNumber, monthNumber) => {
 	return result;
 };
 
-export const getCurrentMonthDaysNumbers = (yearNumber, monthNumber) => {
+export const getCurrentMonthDayNumbers = (yearNumber, monthNumber) => {
 	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
 		return null;
 	const lastDateOfMonth = getLastDateOfMonth(yearNumber, monthNumber);
@@ -51,14 +51,8 @@ export const getCurrentMonthDaysNumbers = (yearNumber, monthNumber) => {
 	return result;
 };
 
-export const getNextMonthDaysNumbers = (
-	yearNumber,
-	monthNumber
-) => {
-	if (
-		typeof yearNumber !== 'number' ||
-		typeof monthNumber !== 'number' 
-	)
+export const getNextMonthDayNumbers = (yearNumber, monthNumber) => {
+	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
 		return null;
 
 	let lastWeekDayNumber = getLastWeekDayNumberOfMonth(
@@ -66,8 +60,8 @@ export const getNextMonthDaysNumbers = (
 		monthNumber
 	);
 
-	let prevMonthDays = getPreviousMonthDaysNumbers(yearNumber, monthNumber);
-	let currentMonthDays = getCurrentMonthDaysNumbers(yearNumber, monthNumber);
+	let prevMonthDays = getPreviousMonthDayNumbers(yearNumber, monthNumber);
+	let currentMonthDays = getCurrentMonthDayNumbers(yearNumber, monthNumber);
 	let previousDaysCount = prevMonthDays.length + currentMonthDays.length;
 
 	//week days start with zero: 0,1,2,3,4,5,6
@@ -88,31 +82,54 @@ export const getNextMonthDaysNumbers = (
 	return result;
 };
 
-export const isToday = (yearNumber, monthNumber, dayNumber) => {
+export const isWeekend = (yearNumber, monthNumber, dateNumber) => {
 	if (
 		typeof yearNumber !== 'number' ||
 		typeof monthNumber !== 'number' ||
-		typeof dayNumber !== 'number'
+		typeof dateNumber !== 'number'
 	)
 		return null;
 
-	const date = new Date();
-	return (
-		dayNumber === date.getDate() &&
-		monthNumber === date.getMonth() &&
-		yearNumber === date.getFullYear()
-	);
-};
-
-export const isWeekend = (yearNumber, monthNumber, dayNumber) => {
-	if (
-		typeof yearNumber !== 'number' ||
-		typeof monthNumber !== 'number' ||
-		typeof dayNumber !== 'number'
-	)
-		return null;
-
-	const date = new Date(yearNumber, monthNumber, dayNumber);
+	const date = new Date(yearNumber, monthNumber, dateNumber);
 	// 0 - Sunday, 6 - Saturday
 	return date.getDay() === 0 || date.getDay() === 6;
+};
+
+export const getDays = (yearNumber, monthNumber) => {
+	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
+		return null;
+
+	let result = [];
+	const prevMonthDayNumbers = getPreviousMonthDayNumbers(
+		yearNumber,
+		monthNumber
+	);
+	const currentMonthDayNumbers = getCurrentMonthDayNumbers(
+		yearNumber,
+		monthNumber
+	);
+	const nextMonthDayNumbers = getNextMonthDayNumbers(yearNumber, monthNumber);
+
+	prevMonthDayNumbers.forEach((number) => {
+		result.push({
+			number,
+			isFromPrevOrNextMonth: true,
+			isWeekend: isWeekend(yearNumber, monthNumber - 1, number),
+		});
+	});
+	currentMonthDayNumbers.forEach((number) => {
+		result.push({
+			number,
+			isWeekend: isWeekend(yearNumber, monthNumber, number),
+		});
+	});
+	nextMonthDayNumbers.forEach((number) => {
+		result.push({
+			number,
+			isFromPrevOrNextMonth: true,
+			isWeekend: isWeekend(yearNumber, monthNumber + 1, number),
+		});
+	});
+
+	return result;
 };

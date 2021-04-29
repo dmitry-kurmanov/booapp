@@ -8,7 +8,7 @@ exports[`snapshot 1`] = `
     class="booapp-calendar__header"
   >
     <button
-      class="booapp-calendar__prev-month-btn"
+      class="booapp-calendar__go-to-prev-month"
     >
       ← Prev
     </button>
@@ -19,10 +19,12 @@ exports[`snapshot 1`] = `
       April
        
       2021
+       
+      Thursday
     </div>
      
     <button
-      class="booapp-calendar__next-month-btn"
+      class="booapp-calendar__go-to-next-month"
     >
       → Next
     </button>
@@ -79,221 +81,253 @@ exports[`snapshot 1`] = `
     class="booapp-calendar__days"
   >
     <div
-      class="booapp-calendar__day booapp-calendar__day--prev-month booapp-calendar__day--weekend"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month booapp-calendar__day--weekend"
     >
       28
+       
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--prev-month"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month"
     >
       29
+       
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--prev-month"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month"
     >
       30
+       
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--prev-month"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month"
     >
       31
+       
     </div>
-     
     <div
       class="booapp-calendar__day"
     >
       1
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       2
+       
     </div>
     <div
       class="booapp-calendar__day booapp-calendar__day--weekend"
     >
       3
+       
     </div>
     <div
       class="booapp-calendar__day booapp-calendar__day--weekend"
     >
       4
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       5
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       6
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       7
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       8
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       9
+       
     </div>
     <div
       class="booapp-calendar__day booapp-calendar__day--weekend"
     >
       10
+       
     </div>
     <div
       class="booapp-calendar__day booapp-calendar__day--weekend"
     >
       11
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       12
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       13
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       14
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       15
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       16
+       
     </div>
     <div
       class="booapp-calendar__day booapp-calendar__day--weekend"
     >
       17
+       
     </div>
     <div
       class="booapp-calendar__day booapp-calendar__day--weekend"
     >
       18
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       19
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       20
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       21
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       22
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       23
+       
     </div>
     <div
       class="booapp-calendar__day booapp-calendar__day--weekend"
     >
       24
+       
     </div>
     <div
       class="booapp-calendar__day booapp-calendar__day--weekend"
     >
       25
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       26
+       
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--today"
+      class="booapp-calendar__day"
     >
       27
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       28
+       
     </div>
     <div
-      class="booapp-calendar__day"
+      class="booapp-calendar__day booapp-calendar__day--selected-day"
     >
       29
+       
     </div>
     <div
       class="booapp-calendar__day"
     >
       30
+       
     </div>
-     
     <div
-      class="booapp-calendar__day booapp-calendar__day--next-month booapp-calendar__day--weekend"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month booapp-calendar__day--weekend"
     >
       1
        
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--next-month booapp-calendar__day--weekend"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month booapp-calendar__day--weekend"
     >
       2
        
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--next-month"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month"
     >
       3
        
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--next-month"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month"
     >
       4
        
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--next-month"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month"
     >
       5
        
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--next-month"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month"
     >
       6
        
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--next-month"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month"
     >
       7
        
     </div>
     <div
-      class="booapp-calendar__day booapp-calendar__day--next-month booapp-calendar__day--weekend"
+      class="booapp-calendar__day booapp-calendar__day--prev-or-next-month booapp-calendar__day--weekend"
     >
       8
        

@@ -2,10 +2,10 @@ import {
 	getLastDateOfMonth,
 	getFirstWeekDayNumberOfMonth,
 	getLastWeekDayNumberOfMonth,
-	getPreviousMonthDaysNumbers,
-	getCurrentMonthDaysNumbers,
-	getNextMonthDaysNumbers,
-	isToday,
+	getPreviousMonthDayNumbers,
+	getCurrentMonthDayNumbers,
+	getNextMonthDayNumbers,
+	getDays,
 	isWeekend,
 } from '../src/core.js';
 
@@ -53,17 +53,17 @@ test('getLastWeekDayNumberOfMonth', () => {
 	expect(getLastWeekDayNumberOfMonth(yearNumber, monthNumber + 1)).toBe(1);
 });
 
-test('getPreviousMonthDaysNumbers', () => {
+test('getPreviousMonthDayNumbers', () => {
 	const yearNumber = 2021;
 	const monthNumber = 3; // April
 
-	expect(getPreviousMonthDaysNumbers(yearNumber, undefined)).toEqual(null);
-	expect(getPreviousMonthDaysNumbers(undefined, monthNumber)).toEqual(null);
-	expect(getPreviousMonthDaysNumbers()).toBe(null);
-	expect(getPreviousMonthDaysNumbers('a', 'b')).toBe(null);
+	expect(getPreviousMonthDayNumbers(yearNumber, undefined)).toEqual(null);
+	expect(getPreviousMonthDayNumbers(undefined, monthNumber)).toEqual(null);
+	expect(getPreviousMonthDayNumbers()).toBe(null);
+	expect(getPreviousMonthDayNumbers('a', 'b')).toBe(null);
 
 	// days for March
-	expect(getPreviousMonthDaysNumbers(yearNumber, monthNumber)).toEqual([
+	expect(getPreviousMonthDayNumbers(yearNumber, monthNumber)).toEqual([
 		28,
 		29,
 		30,
@@ -71,7 +71,7 @@ test('getPreviousMonthDaysNumbers', () => {
 	]);
 });
 
-test('getCurrentMonthDaysNumbers', () => {
+test('getCurrentMonthDayNumbers', () => {
 	const yearNumber = 2021;
 	const monthNumber = 3; // April
 
@@ -81,41 +81,48 @@ test('getCurrentMonthDaysNumbers', () => {
 		expectedResult.push(i);
 	}
 
-	expect(getCurrentMonthDaysNumbers(yearNumber, undefined)).toEqual(null);
-	expect(getCurrentMonthDaysNumbers(undefined, monthNumber)).toEqual(null);
-	expect(getCurrentMonthDaysNumbers()).toBe(null);
-	expect(getCurrentMonthDaysNumbers('a', 'b')).toBe(null);
+	expect(getCurrentMonthDayNumbers(yearNumber, undefined)).toEqual(null);
+	expect(getCurrentMonthDayNumbers(undefined, monthNumber)).toEqual(null);
+	expect(getCurrentMonthDayNumbers()).toBe(null);
+	expect(getCurrentMonthDayNumbers('a', 'b')).toBe(null);
 
 	// days for March
-	expect(getCurrentMonthDaysNumbers(yearNumber, monthNumber)).toEqual(
+	expect(getCurrentMonthDayNumbers(yearNumber, monthNumber)).toEqual(
 		expectedResult
 	);
 });
 
-test('getNextMonthDaysNumbers', () => {
+test('getNextMonthDayNumbers', () => {
 	const yearNumber = 2021;
 	let monthNumber = 3; // April
 
-	expect(getNextMonthDaysNumbers(undefined)).toEqual(null);
-	expect(getNextMonthDaysNumbers()).toBe(null);
-	expect(getNextMonthDaysNumbers('a')).toBe(null);
-	expect(
-		getNextMonthDaysNumbers(yearNumber, undefined)
-	).toBe(null);
-	expect(
-		getNextMonthDaysNumbers(undefined, monthNumber)
-	).toEqual(null);
+	expect(getNextMonthDayNumbers(undefined)).toEqual(null);
+	expect(getNextMonthDayNumbers()).toBe(null);
+	expect(getNextMonthDayNumbers('a')).toBe(null);
+	expect(getNextMonthDayNumbers(yearNumber, undefined)).toBe(null);
+	expect(getNextMonthDayNumbers(undefined, monthNumber)).toEqual(null);
 
 	// next days from the May (current Month is April)
-	expect(
-		getNextMonthDaysNumbers(yearNumber, monthNumber)
-	).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+	expect(getNextMonthDayNumbers(yearNumber, monthNumber)).toEqual([
+		1,
+		2,
+		3,
+		4,
+		5,
+		6,
+		7,
+		8,
+	]);
 
 	// next days from the June (current Month is May)
 	monthNumber = 4; // May
-	expect(
-		getNextMonthDaysNumbers(yearNumber, monthNumber)
-	).toEqual([1, 2, 3, 4, 5]);
+	expect(getNextMonthDayNumbers(yearNumber, monthNumber)).toEqual([
+		1,
+		2,
+		3,
+		4,
+		5,
+	]);
 });
 
 test('isWeekend', () => {
@@ -147,4 +154,47 @@ test('isWeekend', () => {
 	expect(isWeekend(yearNumber, monthNumber, dayNumber)).toBe(true);
 	dayNumber = 3;
 	expect(isWeekend(yearNumber, monthNumber, dayNumber)).toBe(false);
+});
+
+test('getDays', () => {
+	const yearNumber = 2021;
+	const monthNumber = 3; // April
+
+	let expectedResult = [];
+
+	// prev month days
+	for (let i = 28; i <= 31; i++) {
+		expectedResult.push({
+			number: i,
+			isFromPrevOrNextMonth: true,
+			isWeekend: isWeekend(yearNumber, monthNumber - 1, i),
+		});
+	}
+
+	// current month days
+	for (let j = 1; j <= 30; j++) {
+		expectedResult.push({
+			number: j,
+			isWeekend: isWeekend(yearNumber, monthNumber, j),
+		});
+	}
+
+	// next month days
+	for (let k = 1; k <= 8; k++) {
+		expectedResult.push({
+			number: k,
+			isFromPrevOrNextMonth: true,
+			isWeekend: isWeekend(yearNumber, monthNumber + 1, k),
+		});
+	}
+
+	expect(getDays(yearNumber, undefined)).toEqual(null);
+	expect(getDays(undefined, monthNumber)).toEqual(null);
+	expect(getDays()).toBe(null);
+	expect(getDays('a', 'b')).toBe(null);
+
+	// days for March
+	expect(getDays(yearNumber, monthNumber)).toEqual(
+		expectedResult
+	);
 });
