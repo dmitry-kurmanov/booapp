@@ -23,7 +23,9 @@ exports[`snapshot 1`] = `
          
         2021
          
-        Thursday
+        Tuesday
+         
+        27
       </div>
        
       <button
@@ -264,7 +266,7 @@ exports[`snapshot 1`] = `
          
       </div>
       <div
-        class="booapp-calendar__day"
+        class="booapp-calendar__day booapp-calendar__day--selected-day"
       >
         27
          
@@ -276,7 +278,7 @@ exports[`snapshot 1`] = `
          
       </div>
       <div
-        class="booapp-calendar__day booapp-calendar__day--selected-day"
+        class="booapp-calendar__day"
       >
         29
          

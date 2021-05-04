@@ -1,32 +1,32 @@
-export const getLastDateOfMonth = (yearNumber, monthNumber) => {
-	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
+export const getLastDateOfMonth = (fullYearNumber, monthNumber) => {
+	if (typeof fullYearNumber !== 'number' || typeof monthNumber !== 'number')
 		return null;
 	// zero day number means the last day from the previous month
-	return new Date(yearNumber, monthNumber + 1, 0).getDate();
+	return new Date(fullYearNumber, monthNumber + 1, 0).getDate();
 };
 
-export const getFirstWeekDayNumberOfMonth = (yearNumber, monthNumber) => {
-	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
+export const getFirstWeekDayNumberOfMonth = (fullYearNumber, monthNumber) => {
+	if (typeof fullYearNumber !== 'number' || typeof monthNumber !== 'number')
 		return null;
-	return new Date(yearNumber, monthNumber).getDay();
+	return new Date(fullYearNumber, monthNumber).getDay();
 };
 
-export const getLastWeekDayNumberOfMonth = (yearNumber, monthNumber) => {
-	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
+export const getLastWeekDayNumberOfMonth = (fullYearNumber, monthNumber) => {
+	if (typeof fullYearNumber !== 'number' || typeof monthNumber !== 'number')
 		return null;
 	// zero day number means the last day from the previous month
-	return new Date(yearNumber, monthNumber + 1, 0).getDay();
+	return new Date(fullYearNumber, monthNumber + 1, 0).getDay();
 };
 
-export const getPreviousMonthDayNumbers = (yearNumber, monthNumber) => {
-	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
+export const getPreviousMonthDayNumbers = (fullYearNumber, monthNumber) => {
+	if (typeof fullYearNumber !== 'number' || typeof monthNumber !== 'number')
 		return null;
 
 	let firstWeekDayNumber = getFirstWeekDayNumberOfMonth(
-		yearNumber,
+		fullYearNumber,
 		monthNumber
 	);
-	let lastDateOfPrevMonth = getLastDateOfMonth(yearNumber, monthNumber - 1);
+	let lastDateOfPrevMonth = getLastDateOfMonth(fullYearNumber, monthNumber - 1);
 
 	let result = [];
 
@@ -37,10 +37,10 @@ export const getPreviousMonthDayNumbers = (yearNumber, monthNumber) => {
 	return result;
 };
 
-export const getCurrentMonthDayNumbers = (yearNumber, monthNumber) => {
-	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
+export const getCurrentMonthDayNumbers = (fullYearNumber, monthNumber) => {
+	if (typeof fullYearNumber !== 'number' || typeof monthNumber !== 'number')
 		return null;
-	const lastDateOfMonth = getLastDateOfMonth(yearNumber, monthNumber);
+	const lastDateOfMonth = getLastDateOfMonth(fullYearNumber, monthNumber);
 
 	const result = [];
 
@@ -51,17 +51,17 @@ export const getCurrentMonthDayNumbers = (yearNumber, monthNumber) => {
 	return result;
 };
 
-export const getNextMonthDayNumbers = (yearNumber, monthNumber) => {
-	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
+export const getNextMonthDayNumbers = (fullYearNumber, monthNumber) => {
+	if (typeof fullYearNumber !== 'number' || typeof monthNumber !== 'number')
 		return null;
 
 	let lastWeekDayNumber = getLastWeekDayNumberOfMonth(
-		yearNumber,
+		fullYearNumber,
 		monthNumber
 	);
 
-	let prevMonthDays = getPreviousMonthDayNumbers(yearNumber, monthNumber);
-	let currentMonthDays = getCurrentMonthDayNumbers(yearNumber, monthNumber);
+	let prevMonthDays = getPreviousMonthDayNumbers(fullYearNumber, monthNumber);
+	let currentMonthDays = getCurrentMonthDayNumbers(fullYearNumber, monthNumber);
 	let previousDaysCount = prevMonthDays.length + currentMonthDays.length;
 
 	//week days start with zero: 0,1,2,3,4,5,6
@@ -82,52 +82,52 @@ export const getNextMonthDayNumbers = (yearNumber, monthNumber) => {
 	return result;
 };
 
-export const isWeekend = (yearNumber, monthNumber, dateNumber) => {
+export const isWeekend = (fullYearNumber, monthNumber, dateNumber) => {
 	if (
-		typeof yearNumber !== 'number' ||
+		typeof fullYearNumber !== 'number' ||
 		typeof monthNumber !== 'number' ||
 		typeof dateNumber !== 'number'
 	)
 		return null;
 
-	const date = new Date(yearNumber, monthNumber, dateNumber);
+	const date = new Date(fullYearNumber, monthNumber, dateNumber);
 	// 0 - Sunday, 6 - Saturday
 	return date.getDay() === 0 || date.getDay() === 6;
 };
 
-export const getDays = (yearNumber, monthNumber) => {
-	if (typeof yearNumber !== 'number' || typeof monthNumber !== 'number')
+export const getDays = (fullYearNumber, monthNumber) => {
+	if (typeof fullYearNumber !== 'number' || typeof monthNumber !== 'number')
 		return null;
 
 	let result = [];
 	const prevMonthDayNumbers = getPreviousMonthDayNumbers(
-		yearNumber,
+		fullYearNumber,
 		monthNumber
 	);
 	const currentMonthDayNumbers = getCurrentMonthDayNumbers(
-		yearNumber,
+		fullYearNumber,
 		monthNumber
 	);
-	const nextMonthDayNumbers = getNextMonthDayNumbers(yearNumber, monthNumber);
+	const nextMonthDayNumbers = getNextMonthDayNumbers(fullYearNumber, monthNumber);
 
 	prevMonthDayNumbers.forEach((number) => {
 		result.push({
 			number,
 			isFromPrevOrNextMonth: true,
-			isWeekend: isWeekend(yearNumber, monthNumber - 1, number),
+			isWeekend: isWeekend(fullYearNumber, monthNumber - 1, number),
 		});
 	});
 	currentMonthDayNumbers.forEach((number) => {
 		result.push({
 			number,
-			isWeekend: isWeekend(yearNumber, monthNumber, number),
+			isWeekend: isWeekend(fullYearNumber, monthNumber, number),
 		});
 	});
 	nextMonthDayNumbers.forEach((number) => {
 		result.push({
 			number,
 			isFromPrevOrNextMonth: true,
-			isWeekend: isWeekend(yearNumber, monthNumber + 1, number),
+			isWeekend: isWeekend(fullYearNumber, monthNumber + 1, number),
 		});
 	});
 

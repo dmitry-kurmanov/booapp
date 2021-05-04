@@ -4,7 +4,7 @@ export default {
 	title: 'Example/Calendar',
 	component: Calendar,
 	argTypes: {
-		currentDateString: { control: 'text' },
+		dateString: { control: 'text' },
 	},
 };
 
@@ -18,5 +18,5 @@ Main.args = {};
 
 export const PresetDate = Template.bind({});
 PresetDate.args = {
-	currentDateString: '2021-04-27',
+	dateString: '2021-04-27',
 };

@@ -2,49 +2,60 @@
 	import { monthNames, weekDayNames, weekDayShortNames } from '../strings';
 	import { getDays } from '../core';
 
-	export let currentDateString = null;
-
-	let currentDateInstance = new Date();
-	$: currentDateInstance = currentDateString
-		? new Date(currentDateString)
-		: new Date();
+	export let dateString = null;
+	export let fullYearNumber;
+	export let monthNumber;
 
 	export const goToNextMonth = () => {
 		monthNumber++;
 		if (monthNumber > 11) {
-			yearNumber++;
+			fullYearNumber++;
 			monthNumber = 0;
 		}
 	};
 	export const goToPrevMonth = () => {
 		monthNumber--;
 		if (monthNumber < 0) {
-			yearNumber--;
+			fullYearNumber--;
 			monthNumber = 11;
 		}
 	};
-	export let yearNumber = currentDateInstance.getFullYear();
-	export let monthNumber = currentDateInstance.getMonth();
 
-	export const selectDate = (newDateNumber) => {
-		selectedDateNumber = newDateNumber;
-		selectedMonthNumber = monthNumber;
+	export const setDate = (fullYearNumber, monthNumber, dateNumber) => {
+		if (
+			typeof fullYearNumber !== 'number' ||
+			typeof monthNumber !== 'number' ||
+			typeof dateNumber !== 'number'
+		)
+			return;
+
+		dateInstance.setFullYear(fullYearNumber);
+		dateInstance.setMonth(monthNumber);
+		dateInstance.setDate(dateNumber);
+
+		dateInstance = dateInstance; //svelte update hack
 	};
-	let selectedMonthNumber = currentDateInstance.getMonth();
-	let selectedDateNumber = currentDateInstance.getDate();
-	function isSelectedDate(dateNumber) {
-		return (
-			selectedMonthNumber === monthNumber &&
-			selectedDateNumber === dateNumber
-		);
+
+	let dateInstance = new Date();
+
+	$: {
+		if (dateString) dateInstance = new Date(dateString);
 	}
+	$: fullYearNumber = dateInstance.getFullYear();
+	$: monthNumber = dateInstance.getMonth();
 
 	$: monthName = monthNames[monthNumber];
-	$: days = getDays(yearNumber, monthNumber);
-	$: currentWeekDay =
-		weekDayNames[
-			new Date(yearNumber, monthNumber, selectedDateNumber).getDay()
-		];
+	$: weekDayName = weekDayNames[dateInstance.getDay()];
+
+	$: days = getDays(fullYearNumber, monthNumber);
+
+	$: isSelectedDate = (fullYearNumber, monthNumber, dateNumber) => {
+		return (
+			dateInstance.getFullYear() === fullYearNumber &&
+			dateInstance.getMonth() === monthNumber &&
+			dateInstance.getDate() === dateNumber
+		);
+	};
 </script>
 
 <div class="booapp-calendar">
@@ -58,8 +69,9 @@
 
 		<div class="booapp-calendar__header-info">
 			{monthName}
-			{yearNumber}
-			{currentWeekDay}
+			{fullYearNumber}
+			{weekDayName}
+			{dateInstance.getDate()}
 		</div>
 
 		<button
@@ -81,12 +93,12 @@
 	<div class="booapp-calendar__days">
 		{#each days as day}
 			<div
-				on:click={selectDate(day.number)}
+				on:click={setDate(fullYearNumber, monthNumber, day.number)}
 				class="booapp-calendar__day"
 				class:booapp-calendar__day--prev-or-next-month={day.isFromPrevOrNextMonth}
 				class:booapp-calendar__day--weekend={day.isWeekend}
 				class:booapp-calendar__day--selected-day={!day.isFromPrevOrNextMonth &&
-					isSelectedDate(day.number)}
+					isSelectedDate(fullYearNumber, monthNumber, day.number)}
 			>
 				{day.number}
 			</div>
