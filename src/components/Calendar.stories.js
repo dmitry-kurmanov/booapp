@@ -14,7 +14,9 @@ const Template = ({ ...args }) => ({
 });
 
 export const Main = Template.bind({});
-Main.args = {};
+Main.args = {
+	dateString: '2021-04-27',
+};
 
 export const PresetDate = Template.bind({});
 PresetDate.args = {

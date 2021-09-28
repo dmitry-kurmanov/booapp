@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe';
 
 fixture`Calendar Component`
-	.page`http://127.0.0.1:6777/?path=/story/example-calendar--primary`;
+	.page`http://localhost:6006/?path=/story/example-calendar--preset-date`;
 
 test('Next prev month btns', async (t) => {
 	await t.switchToIframe('#storybook-preview-iframe');
