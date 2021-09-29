@@ -16,7 +16,6 @@
 		"eslint": "7.32.0",
 		"eslint-config-prettier": "8.3.0",
 		"eslint-plugin-svelte3": "3.2.1",
-		"husky": "^6.0.0",
 		"jest": "^26.6.3",
 		"lint-staged": "^10.5.4",
 		"node-sass": "^5.0.0",
@@ -37,16 +36,12 @@
 		"svelte": "3.43.0",
 		"svelte-loader": "3.1.2",
 		"svelte-preprocess": "4.9.5",
-		"testcafe": "1.16.0"
+		"testcafe": "1.16.0",
+		"husky": "^7.0.0"
 	},
 	"files": [
 		"dist"
 	],
-	"husky": {
-		"hooks": {
-			"pre-commit": "npm run test-single"
-		}
-	},
 	"keywords": [
 		"svelte"
 	],
@@ -74,12 +69,15 @@
 		"lint": "eslint --color --ignore-path .gitignore .",
 		"start": "sirv public",
 		"test": "jest --watchAll",
-		"test-single": "jest",
 		"storybook": "start-storybook -p 6006",
-		"creevey": "creevey --ui",
+		"creevey:ui": "creevey --ui",
 		"creevey:update": "creevey --udpate",
 		"build-storybook": "build-storybook",
-		"testcafe": "testcafe chrome src/**/*testcafe* --reporter minimal --screenshots src/components"
+		"testcafe": "testcafe chrome src/**/*testcafe* --reporter minimal --screenshots src/components",
+		"test-single": "jest",
+		"creevey-single": "creevey",
+		"prepare": "husky install",
+		"pre-push-check": "npm run test-single"
 	},
 	"svelte": "src/components/BooApp.svelte",
 	"version": "0.0.2",
