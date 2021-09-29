@@ -1,11 +1,9 @@
 import { Selector } from 'testcafe';
 
 fixture`Calendar Component`
-	.page`http://localhost:6006/?path=/story/example-calendar--preset-date`;
+	.page`http://localhost:6006/iframe.html?id=example-calendar--preset-date&args=&viewMode=story`;
 
 test('Next prev month btns', async (t) => {
-	await t.switchToIframe('#storybook-preview-iframe');
-
 	const April = Selector('div').withText('APRIL');
 	await t.expect(April.exists).ok();
 
@@ -20,8 +18,6 @@ test('Next prev month btns', async (t) => {
 });
 
 test('Screenshot testing (visual)', async (t) => {
-	await t.switchToIframe('#storybook-preview-iframe');
-
 	await t.takeElementScreenshot(
 		Selector('.booapp-calendar'),
 		'./screenshots/calendar.png',
