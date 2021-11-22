@@ -70,8 +70,6 @@
 		<div class="booapp-calendar__header-info">
 			{monthName}
 			{fullYearNumber}
-			{weekDayName}
-			{dateInstance.getDate()}
 		</div>
 
 		<button
