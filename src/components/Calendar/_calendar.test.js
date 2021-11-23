@@ -46,11 +46,36 @@ test('goToPrevMonth', () => {
 	expect(calendar.monthNumber).toEqual(11);
 });
 
+test('selectDate', () => {
+	const calendar = new Calendar({
+		target: document.body,
+		props: {},
+	});
+
+	const currentDateInstance = new Date();
+
+	expect(calendar.selectedDateInstance.getDate()).toEqual(
+		currentDateInstance.getDate()
+	);
+
+	const selectedDateInstance = new Date('2021-04-27');
+
+	calendar.selectDate(
+		selectedDateInstance.getFullYear(),
+		selectedDateInstance.getMonth(),
+		selectedDateInstance.getDate()
+	);
+
+	expect(calendar.selectedDateInstance.getDate()).toEqual(
+		selectedDateInstance.getDate()
+	);
+});
+
 test('snapshot', () => {
 	new Calendar({
 		target: document.body,
 		props: {
-			dateString: '2021-04-27',
+			selectedDateString: '2021-04-27',
 		},
 	});
 	const calendarNode = document.querySelector('.booapp-calendar');

@@ -8,7 +8,7 @@ test('snapshot', () => {
 	new BooApp({
 		target: document.body,
 		props: {
-			json: { dateString: '2021-04-27' },
+			json: { selectedDateString: '2021-04-27' },
 		},
 	});
 	const boappNode = document.querySelector('.booapp');

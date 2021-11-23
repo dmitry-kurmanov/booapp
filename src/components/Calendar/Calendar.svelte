@@ -2,7 +2,8 @@
 	import { monthNames, weekDayNames, weekDayShortNames } from '../../strings';
 	import { getDays } from '../../utils/core';
 
-	export let dateString = null;
+	export let selectedDateString = null;
+	export let selectedDateInstance = new Date();
 	export let fullYearNumber;
 	export let monthNumber;
 
@@ -21,7 +22,7 @@
 		}
 	};
 
-	export const setDate = (fullYearNumber, monthNumber, dateNumber) => {
+	export const selectDate = (fullYearNumber, monthNumber, dateNumber) => {
 		if (
 			typeof fullYearNumber !== 'number' ||
 			typeof monthNumber !== 'number' ||
@@ -29,31 +30,40 @@
 		)
 			return;
 
-		dateInstance.setFullYear(fullYearNumber);
-		dateInstance.setMonth(monthNumber);
-		dateInstance.setDate(dateNumber);
+		selectedDateInstance.setFullYear(fullYearNumber);
+		selectedDateInstance.setMonth(monthNumber);
+		selectedDateInstance.setDate(dateNumber);
 
-		dateInstance = dateInstance; //svelte update hack
+		selectedDateInstance = selectedDateInstance; //svelte update hack
 	};
 
-	let dateInstance = new Date();
+	let currentDateInstance = new Date();
 
 	$: {
-		if (dateString) dateInstance = new Date(dateString);
+		if (selectedDateString)
+			currentDateInstance = new Date(selectedDateString);
 	}
-	$: fullYearNumber = dateInstance.getFullYear();
-	$: monthNumber = dateInstance.getMonth();
+	$: fullYearNumber = currentDateInstance.getFullYear();
+	$: monthNumber = currentDateInstance.getMonth();
 
 	$: monthName = monthNames[monthNumber];
-	$: weekDayName = weekDayNames[dateInstance.getDay()];
+	$: weekDayName = weekDayNames[currentDateInstance.getDay()];
 
 	$: days = getDays(fullYearNumber, monthNumber);
 
+	$: isCurrentdDate = (fullYearNumber, monthNumber, dateNumber) => {
+		return (
+			currentDateInstance.getFullYear() === fullYearNumber &&
+			currentDateInstance.getMonth() === monthNumber &&
+			currentDateInstance.getDate() === dateNumber
+		);
+	};
+
 	$: isSelectedDate = (fullYearNumber, monthNumber, dateNumber) => {
 		return (
-			dateInstance.getFullYear() === fullYearNumber &&
-			dateInstance.getMonth() === monthNumber &&
-			dateInstance.getDate() === dateNumber
+			selectedDateInstance.getFullYear() === fullYearNumber &&
+			selectedDateInstance.getMonth() === monthNumber &&
+			selectedDateInstance.getDate() === dateNumber
 		);
 	};
 </script>
@@ -91,11 +101,13 @@
 	<div class="booapp-calendar__days">
 		{#each days as day}
 			<div
-				on:click={setDate(fullYearNumber, monthNumber, day.number)}
+				on:click={selectDate(fullYearNumber, monthNumber, day.number)}
 				class="booapp-calendar__day"
 				class:booapp-calendar__day--prev-or-next-month={day.isFromPrevOrNextMonth}
 				class:booapp-calendar__day--weekend={day.isWeekend}
-				class:booapp-calendar__day--selected-day={!day.isFromPrevOrNextMonth &&
+				class:booapp-calendar__day--current={!day.isFromPrevOrNextMonth &&
+					isCurrentdDate(fullYearNumber, monthNumber, day.number)}
+				class:booapp-calendar__day--selected={!day.isFromPrevOrNextMonth &&
 					isSelectedDate(fullYearNumber, monthNumber, day.number)}
 			>
 				{day.number}
@@ -191,20 +203,31 @@
 		transition: background-color 0.2s;
 	}
 
-	.booapp-calendar__day:hover:not(.booapp-calendar__day--selected-day) {
+	.booapp-calendar__day:hover:not(.booapp-calendar__day--current) {
 		border: 0.2rem solid tomato;
 		cursor: pointer;
 	}
-	.booapp-calendar__day--selected-day {
+	.booapp-calendar__day--current {
 		color: #fff;
 		background-color: tomato;
+	}
+
+	.booapp-calendar__day--selected {
+		border: 0.2rem solid tomato;
+
+		&.booapp-calendar__day--current {
+			&:hover {
+				border: 0.2rem solid black;
+			}
+			border: 0.2rem solid black;
+		}
 	}
 
 	.booapp-calendar__day--weekend {
 		color: tomato;
 	}
 
-	.booapp-calendar__day--selected-day.booapp-calendar__day--weekend {
+	.booapp-calendar__day--current.booapp-calendar__day--weekend {
 		color: white;
 	}
 </style>

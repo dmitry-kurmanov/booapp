@@ -4,7 +4,7 @@ export default {
 	title: 'Example/Calendar',
 	component: Calendar,
 	argTypes: {
-		dateString: { control: 'text' },
+		selectedDateString: { control: 'text' },
 	},
 };
 
@@ -15,10 +15,10 @@ const Template = ({ ...args }) => ({
 
 export const Main = Template.bind({});
 Main.args = {
-	dateString: '2021-04-27',
+	selectedDateString: '2021-04-27',
 };
 
 export const PresetDate = Template.bind({});
 PresetDate.args = {
-	dateString: '2021-04-27',
+	selectedDateString: '2021-04-27',
 };

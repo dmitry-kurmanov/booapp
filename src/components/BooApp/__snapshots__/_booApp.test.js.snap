@@ -262,7 +262,7 @@ exports[`snapshot 1`] = `
          
       </div>
       <div
-        class="booapp-calendar__day booapp-calendar__day--selected-day"
+        class="booapp-calendar__day booapp-calendar__day--current"
       >
         27
          

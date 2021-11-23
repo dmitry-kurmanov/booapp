@@ -4,7 +4,7 @@
 </script>
 
 <div class="booapp">
-	<Calendar dateString={json.dateString} />
+	<Calendar selectedDateString={json.selectedDateString} />
 </div>
 
 <style lang="scss" global>
