@@ -7,7 +7,7 @@ import {
 	getNextMonthDayNumbers,
 	getDays,
 	isWeekend,
-} from '../src/core.js';
+} from './core.js';
 
 test('getLastDateOfMonth', () => {
 	const fullYearNumber = 2021;

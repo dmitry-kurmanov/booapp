@@ -17,25 +17,25 @@ const config = {
 	input: 'src/index.js',
 	output: !production
 		? {
-				sourcemap: true,
-				format: 'iife',
-				name,
-				file: 'public/booapp.js',
-		  }
+			sourcemap: true,
+			format: 'iife',
+			name,
+			file: 'public/booapp.js',
+		}
 		: [
-				{
-					file: pkg.module,
-					format: 'es',
-					sourcemap: true,
-					name,
-				},
-				{
-					file: pkg.main,
-					format: 'umd',
-					sourcemap: true,
-					name,
-				},
-		  ],
+			{
+				file: pkg.module,
+				format: 'es',
+				sourcemap: true,
+				name,
+			},
+			{
+				file: pkg.main,
+				format: 'umd',
+				sourcemap: true,
+				name,
+			},
+		],
 	plugins: [
 		babel({
 			runtimeHelpers: true,
@@ -114,11 +114,11 @@ function serve() {
 }
 
 const testConfig = {
-	input: 'unit-tests/components/index.js',
-	output: [{ file: 'unit-tests/components/testbuild.js', format: 'cjs' }],
+	input: 'src/components/_test-index.js',
+	output: [{ file: 'src/components/_test-build.js', format: 'cjs' }],
 	plugins: [
 		del({
-			targets: ['unit-tests/components/testbuild.js'],
+			targets: ['src/components/_test-build.js'],
 		}),
 		svelte({
 			/**

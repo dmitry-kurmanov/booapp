@@ -6,4 +6,4 @@ report
 
 src/components/screenshots
 
-unit-tests/components/testbuild.js
+src/components/_test-build.js

@@ -1,5 +1,5 @@
 <script>
-	import Calendar from './Calendar.svelte';
+	import Calendar from '../Calendar/Calendar.svelte';
 	export let json = {};
 </script>
 

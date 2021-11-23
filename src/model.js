@@ -1,4 +1,4 @@
-import BooApp from './components/BooApp.svelte';
+import BooApp from './components/BooApp/BooApp.svelte';
 
 export class Model {
 	constructor(json) {

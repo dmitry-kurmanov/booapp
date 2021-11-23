@@ -1,4 +1,4 @@
-import { Calendar } from './testbuild.js';
+import { Calendar } from '../_test-build.js';
 
 afterEach(() => {
 	document.body.innerHTML = '';

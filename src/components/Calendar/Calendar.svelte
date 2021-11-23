@@ -1,6 +1,6 @@
 <script>
-	import { monthNames, weekDayNames, weekDayShortNames } from '../strings';
-	import { getDays } from '../core';
+	import { monthNames, weekDayNames, weekDayShortNames } from '../../strings';
+	import { getDays } from '../../utils/core';
 
 	export let dateString = null;
 	export let fullYearNumber;

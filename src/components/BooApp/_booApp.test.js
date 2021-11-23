@@ -1,4 +1,4 @@
-import { BooApp } from './testbuild.js';
+import { BooApp } from '../_test-build.js';
 
 afterEach(() => {
 	document.body.innerHTML = '';
