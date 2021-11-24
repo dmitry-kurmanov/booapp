@@ -168,6 +168,7 @@ test('getDays', () => {
 			number: i,
 			isFromPrevOrNextMonth: true,
 			isWeekend: isWeekend(fullYearNumber, monthNumber - 1, i),
+			monthNumber: monthNumber - 1,
 		});
 	}
 
@@ -176,6 +177,7 @@ test('getDays', () => {
 		expectedResult.push({
 			number: j,
 			isWeekend: isWeekend(fullYearNumber, monthNumber, j),
+			monthNumber,
 		});
 	}
 
@@ -185,6 +187,7 @@ test('getDays', () => {
 			number: k,
 			isFromPrevOrNextMonth: true,
 			isWeekend: isWeekend(fullYearNumber, monthNumber + 1, k),
+			monthNumber: monthNumber + 1,
 		});
 	}
 

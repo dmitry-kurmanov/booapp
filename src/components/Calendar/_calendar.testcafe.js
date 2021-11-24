@@ -17,6 +17,14 @@ test('Next prev month btns', async (t) => {
 	await t.expect(March.exists).ok();
 });
 
+test('select date', async (t) => {
+	const FirstDayOfMonth = Selector('.booapp-calendar__day').withText('1');
+	await t.expect(FirstDayOfMonth.exists).ok();
+
+	await t.click(FirstDayOfMonth);
+	await t.expect(FirstDayOfMonth.hasClass("booapp-calendar__day--selected")).ok();
+});
+
 test('Screenshot testing (visual)', async (t) => {
 	await t.takeElementScreenshot(
 		Selector('.booapp-calendar'),

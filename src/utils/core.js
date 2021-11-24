@@ -115,12 +115,14 @@ export const getDays = (fullYearNumber, monthNumber) => {
 			number,
 			isFromPrevOrNextMonth: true,
 			isWeekend: isWeekend(fullYearNumber, monthNumber - 1, number),
+			monthNumber: monthNumber - 1,
 		});
 	});
 	currentMonthDayNumbers.forEach((number) => {
 		result.push({
 			number,
 			isWeekend: isWeekend(fullYearNumber, monthNumber, number),
+			monthNumber,
 		});
 	});
 	nextMonthDayNumbers.forEach((number) => {
@@ -128,6 +130,7 @@ export const getDays = (fullYearNumber, monthNumber) => {
 			number,
 			isFromPrevOrNextMonth: true,
 			isWeekend: isWeekend(fullYearNumber, monthNumber + 1, number),
+			monthNumber: monthNumber + 1,
 		});
 	});
 

@@ -101,14 +101,21 @@
 	<div class="booapp-calendar__days">
 		{#each days as day}
 			<div
-				on:click={selectDate(fullYearNumber, monthNumber, day.number)}
+				on:click={selectDate(
+					fullYearNumber,
+					day.monthNumber,
+					day.number
+				)}
 				class="booapp-calendar__day"
 				class:booapp-calendar__day--prev-or-next-month={day.isFromPrevOrNextMonth}
 				class:booapp-calendar__day--weekend={day.isWeekend}
 				class:booapp-calendar__day--current={!day.isFromPrevOrNextMonth &&
 					isCurrentdDate(fullYearNumber, monthNumber, day.number)}
-				class:booapp-calendar__day--selected={!day.isFromPrevOrNextMonth &&
-					isSelectedDate(fullYearNumber, monthNumber, day.number)}
+				class:booapp-calendar__day--selected={isSelectedDate(
+					fullYearNumber,
+					day.monthNumber,
+					day.number
+				)}
 			>
 				{day.number}
 			</div>
@@ -214,6 +221,7 @@
 
 	.booapp-calendar__day--selected {
 		border: 0.2rem solid tomato;
+		opacity: 1;
 
 		&.booapp-calendar__day--current {
 			&:hover {
