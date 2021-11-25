@@ -16,13 +16,13 @@ test('goToNextMonth', () => {
 
 	calendar.goToNextMonth();
 	expect(calendar.fullYearNumber).toEqual(currentYear);
-	expect(calendar.monthNumber).toEqual(currentMonth + 1);
+	expect(calendar.selectedMonthNumber).toEqual(currentMonth + 1);
 
-	calendar.monthNumber = 11;
+	calendar.selectedMonthNumber = 11;
 
 	calendar.goToNextMonth();
 	expect(calendar.fullYearNumber).toEqual(currentYear + 1);
-	expect(calendar.monthNumber).toEqual(0);
+	expect(calendar.selectedMonthNumber).toEqual(0);
 });
 
 test('goToPrevMonth', () => {
@@ -37,13 +37,13 @@ test('goToPrevMonth', () => {
 
 	calendar.goToPrevMonth();
 	expect(calendar.fullYearNumber).toEqual(currentYear);
-	expect(calendar.monthNumber).toEqual(currentMonth - 1);
+	expect(calendar.selectedMonthNumber).toEqual(currentMonth - 1);
 
-	calendar.monthNumber = 0;
+	calendar.selectedMonthNumber = 0;
 
 	calendar.goToPrevMonth();
 	expect(calendar.fullYearNumber).toEqual(currentYear - 1);
-	expect(calendar.monthNumber).toEqual(11);
+	expect(calendar.selectedMonthNumber).toEqual(11);
 });
 
 test('selectDate', () => {

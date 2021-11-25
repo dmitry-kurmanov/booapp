@@ -5,20 +5,20 @@
 	export let selectedDateString = null;
 	export let selectedDateInstance = new Date();
 	export let fullYearNumber;
-	export let monthNumber;
+	export let selectedMonthNumber;
 
 	export const goToNextMonth = () => {
-		monthNumber++;
-		if (monthNumber > 11) {
+		selectedMonthNumber++;
+		if (selectedMonthNumber > 11) {
 			fullYearNumber++;
-			monthNumber = 0;
+			selectedMonthNumber = 0;
 		}
 	};
 	export const goToPrevMonth = () => {
-		monthNumber--;
-		if (monthNumber < 0) {
+		selectedMonthNumber--;
+		if (selectedMonthNumber < 0) {
 			fullYearNumber--;
-			monthNumber = 11;
+			selectedMonthNumber = 11;
 		}
 	};
 
@@ -44,12 +44,14 @@
 			currentDateInstance = new Date(selectedDateString);
 	}
 	$: fullYearNumber = currentDateInstance.getFullYear();
-	$: monthNumber = currentDateInstance.getMonth();
+	$: selectedMonthNumber = currentDateInstance.getMonth();
+	$: selectedMonthName = monthNames[selectedMonthNumber];
 
-	$: monthName = monthNames[monthNumber];
+	$: currentMonthName = monthNames[currentDateInstance.getMonth()];
+
 	$: weekDayName = weekDayNames[currentDateInstance.getDay()];
 
-	$: days = getDays(fullYearNumber, monthNumber);
+	$: days = getDays(fullYearNumber, selectedMonthNumber);
 
 	$: isCurrentdDate = (fullYearNumber, monthNumber, dateNumber) => {
 		return (
@@ -68,6 +70,11 @@
 	};
 </script>
 
+<div class="booapp-calendar-current-date">
+	{weekDayName}, {currentMonthName}
+	{currentDateInstance.getDate()}, {fullYearNumber}
+</div>
+
 <div class="booapp-calendar">
 	<div class="booapp-calendar__header">
 		<button
@@ -78,7 +85,7 @@
 		</button>
 
 		<div class="booapp-calendar__header-info">
-			{monthName}
+			{selectedMonthName}
 			{fullYearNumber}
 		</div>
 
@@ -110,7 +117,7 @@
 				class:booapp-calendar__day--prev-or-next-month={day.isFromPrevOrNextMonth}
 				class:booapp-calendar__day--weekend={day.isWeekend}
 				class:booapp-calendar__day--current={!day.isFromPrevOrNextMonth &&
-					isCurrentdDate(fullYearNumber, monthNumber, day.number)}
+					isCurrentdDate(fullYearNumber, selectedMonthNumber, day.number)}
 				class:booapp-calendar__day--selected={isSelectedDate(
 					fullYearNumber,
 					day.monthNumber,
@@ -124,6 +131,10 @@
 </div>
 
 <style lang="scss" global>
+
+	.booapp-calendar-current-date {
+		font-size:20px;
+	}
 	.booapp-calendar {
 		width: 45rem;
 		height: 44rem;

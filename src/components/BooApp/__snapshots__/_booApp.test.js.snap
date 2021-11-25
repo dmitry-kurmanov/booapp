@@ -5,6 +5,18 @@ exports[`snapshot 1`] = `
   class="booapp"
 >
   <div
+    class="booapp-calendar-current-date"
+  >
+    Tuesday
+    , 
+    April
+     
+    27
+    , 
+    2021
+  </div>
+   
+  <div
     class="booapp-calendar"
   >
     <div
