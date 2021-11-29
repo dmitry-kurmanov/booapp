@@ -347,5 +347,13 @@ exports[`snapshot 1`] = `
       </div>
     </div>
   </div>
+   
+  <div
+    class="booapp-calendar-selected-date"
+  >
+    Monday
+     
+    29
+  </div>
 </div>
 `;

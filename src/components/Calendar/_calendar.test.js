@@ -15,13 +15,13 @@ test('goToNextMonth', () => {
 	const currentYear = date.getFullYear();
 
 	calendar.goToNextMonth();
-	expect(calendar.fullYearNumber).toEqual(currentYear);
+	expect(calendar.currentFullYearNumber).toEqual(currentYear);
 	expect(calendar.selectedMonthNumber).toEqual(currentMonth + 1);
 
 	calendar.selectedMonthNumber = 11;
 
 	calendar.goToNextMonth();
-	expect(calendar.fullYearNumber).toEqual(currentYear + 1);
+	expect(calendar.currentFullYearNumber).toEqual(currentYear + 1);
 	expect(calendar.selectedMonthNumber).toEqual(0);
 });
 
@@ -36,13 +36,13 @@ test('goToPrevMonth', () => {
 	const currentYear = date.getFullYear();
 
 	calendar.goToPrevMonth();
-	expect(calendar.fullYearNumber).toEqual(currentYear);
+	expect(calendar.currentFullYearNumber).toEqual(currentYear);
 	expect(calendar.selectedMonthNumber).toEqual(currentMonth - 1);
 
 	calendar.selectedMonthNumber = 0;
 
 	calendar.goToPrevMonth();
-	expect(calendar.fullYearNumber).toEqual(currentYear - 1);
+	expect(calendar.currentFullYearNumber).toEqual(currentYear - 1);
 	expect(calendar.selectedMonthNumber).toEqual(11);
 });
 

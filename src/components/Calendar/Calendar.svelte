@@ -1,23 +1,23 @@
 <script>
 	import { monthNames, weekDayNames, weekDayShortNames } from '../../strings';
-	import { getDays } from '../../utils/core';
+	import { getDays, isDateInstancesEqual } from '../../utils/core';
 
 	export let selectedDateString = null;
 	export let selectedDateInstance = new Date();
-	export let fullYearNumber;
+	export let currentFullYearNumber;
 	export let selectedMonthNumber;
 
 	export const goToNextMonth = () => {
 		selectedMonthNumber++;
 		if (selectedMonthNumber > 11) {
-			fullYearNumber++;
+			currentFullYearNumber++;
 			selectedMonthNumber = 0;
 		}
 	};
 	export const goToPrevMonth = () => {
 		selectedMonthNumber--;
 		if (selectedMonthNumber < 0) {
-			fullYearNumber--;
+			currentFullYearNumber--;
 			selectedMonthNumber = 11;
 		}
 	};
@@ -43,15 +43,17 @@
 		if (selectedDateString)
 			currentDateInstance = new Date(selectedDateString);
 	}
-	$: fullYearNumber = currentDateInstance.getFullYear();
+
+	$: currentFullYearNumber = currentDateInstance.getFullYear();
+	$: currentMonthName = monthNames[currentDateInstance.getMonth()];
+	$: currentWeekDayName = weekDayNames[currentDateInstance.getDay()];
+
 	$: selectedMonthNumber = currentDateInstance.getMonth();
 	$: selectedMonthName = monthNames[selectedMonthNumber];
 
-	$: currentMonthName = monthNames[currentDateInstance.getMonth()];
+	$: selectedWeekDayName = weekDayNames[selectedDateInstance.getDay()];
 
-	$: weekDayName = weekDayNames[currentDateInstance.getDay()];
-
-	$: days = getDays(fullYearNumber, selectedMonthNumber);
+	$: days = getDays(currentFullYearNumber, selectedMonthNumber);
 
 	$: isCurrentdDate = (fullYearNumber, monthNumber, dateNumber) => {
 		return (
@@ -71,8 +73,8 @@
 </script>
 
 <div class="booapp-calendar-current-date">
-	{weekDayName}, {currentMonthName}
-	{currentDateInstance.getDate()}, {fullYearNumber}
+	{currentWeekDayName}, {currentMonthName}
+	{currentDateInstance.getDate()}, {currentFullYearNumber}
 </div>
 
 <div class="booapp-calendar">
@@ -86,7 +88,7 @@
 
 		<div class="booapp-calendar__header-info">
 			{selectedMonthName}
-			{fullYearNumber}
+			{currentFullYearNumber}
 		</div>
 
 		<button
@@ -109,7 +111,7 @@
 		{#each days as day}
 			<div
 				on:click={selectDate(
-					fullYearNumber,
+					currentFullYearNumber,
 					day.monthNumber,
 					day.number
 				)}
@@ -117,9 +119,13 @@
 				class:booapp-calendar__day--prev-or-next-month={day.isFromPrevOrNextMonth}
 				class:booapp-calendar__day--weekend={day.isWeekend}
 				class:booapp-calendar__day--current={!day.isFromPrevOrNextMonth &&
-					isCurrentdDate(fullYearNumber, selectedMonthNumber, day.number)}
+					isCurrentdDate(
+						currentFullYearNumber,
+						selectedMonthNumber,
+						day.number
+					)}
 				class:booapp-calendar__day--selected={isSelectedDate(
-					fullYearNumber,
+					currentFullYearNumber,
 					day.monthNumber,
 					day.number
 				)}
@@ -130,10 +136,18 @@
 	</div>
 </div>
 
-<style lang="scss" global>
+<div class="booapp-calendar-selected-date">
+	{#if isDateInstancesEqual(selectedDateInstance, currentDateInstance)}
+		today
+	{:else}
+		{selectedWeekDayName} {selectedDateInstance.getDate()}
+	{/if}
+</div>
 
-	.booapp-calendar-current-date {
-		font-size:20px;
+<style lang="scss" global>
+	.booapp-calendar-current-date,
+	.booapp-calendar-selected-date {
+		font-size: 20px;
 	}
 	.booapp-calendar {
 		width: 45rem;

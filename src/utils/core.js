@@ -136,3 +136,9 @@ export const getDays = (fullYearNumber, monthNumber) => {
 
 	return result;
 };
+
+export const isDateInstancesEqual = (dateInstance1, dateInstance2) => {
+	if (typeof dateInstance1 !== 'object' || typeof dateInstance2 !== 'object')
+		return null;
+	return dateInstance1.getTime() === dateInstance2.getTime(); 
+};
